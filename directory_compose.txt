@@ -1,0 +1,39 @@
+portfolio/
+├── pom.xml
+├── src/
+│   ├── main/
+│   │   ├── java/com/yourname/portfolio/
+│   │   │   ├── PortfolioApplication.java
+│   │   │   ├── controller/
+│   │   │   │   ├── HomeController.java       # / (About・Skills)
+│   │   │   │   ├── ProjectController.java    # /projects
+│   │   │   │   └── BlogController.java       # /blog (学習記録)
+│   │   │   ├── model/
+│   │   │   │   ├── Project.java              # @Entity
+│   │   │   │   └── Article.java              # @Entity
+│   │   │   ├── repository/
+│   │   │   │   ├── ProjectRepository.java    # JpaRepository を extends
+│   │   │   │   └── ArticleRepository.java
+│   │   │   └── service/
+│   │   │       ├── ProjectService.java
+│   │   │       └── ArticleService.java
+│   │   └── resources/
+│   │       ├── application.properties        # DB接続情報など
+│   │       ├── static/
+│   │       │   ├── css/custom.css            # Bootstrap 上書き用
+│   │       │   ├── js/main.js
+│   │       │   └── images/
+│   │       └── templates/
+│   │           ├── layout/
+│   │           │   └── base.html             # 共通レイアウト（Thymeleaf fragments）
+│   │           ├── index.html                # トップ・自己紹介
+│   │           ├── projects/
+│   │           │   ├── list.html
+│   │           │   └── detail.html
+│   │           └── blog/
+│   │               ├── list.html
+│   │               └── detail.html
+│   └── test/
+│       └── java/com/yourname/portfolio/
+│           └── ...                           # JUnit テスト
+└── README.md
