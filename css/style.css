@@ -1,0 +1,228 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(to bottom right, whitesmoke, gray);
+  min-height: 100vh;
+  text-align: center;
+}
+
+body header {
+  color: #000;
+}
+
+body h1,
+body h2 {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  font-family: "Zen Antique";
+  font-style: italic;
+  text-align: center;
+}
+
+body h1 {
+  font-size: 3em;
+}
+
+body h2 {
+  font-size: 2em;
+  border-bottom: #000 solid 2px;
+}
+
+body header {
+  background: linear-gradient(to bottom right, white, gainsboro);
+  border-bottom: #000 solid 2px;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+body .contents {
+  display: grid;
+  grid-template-columns: 80% 20%;
+}
+
+body .contents article {
+  margin-top: 15%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  font-family: "Zen Old Mincho";
+}
+
+body .contents article h1 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  background: linear-gradient(to bottom right, white, gainsboro);
+  font-size: 2.5em;
+  border: #000 solid 1px;
+}
+
+body .contents article form {
+  margin: 5% auto;
+  width: 90%;
+  background-color: white;
+  border: #000 solid 1px;
+  font-size: 1.5em;
+}
+
+body .contents article form table {
+  margin: 5% auto;
+  width: 90%;
+  border: #000 solid 1px;
+  border-collapse: collapse;
+}
+
+body .contents article form table th,
+body .contents article form table td {
+  border: #000 solid 1px;
+}
+
+body .contents article form table th {
+  background: linear-gradient(to bottom right, whitesmoke, gray);
+}
+
+body .contents article form table td {
+  width: 70%;
+  font-family: "Zen Kaku Gothic New";
+}
+
+body .contents article form table input,
+body .contents article form table textarea {
+  width: 100%;
+}
+
+body .contents article form table textarea {
+  height: 5em;
+}
+
+body .contents article form button {
+  margin-bottom: 5%;
+  padding: 1%;
+  background-color: white;
+  border: #000 solid 1px;
+  border-radius: 10%;
+}
+
+body .contents article form button:hover {
+  background-color: #000;
+  color: white;
+}
+
+body .contents article form .preview {
+  max-width: 75%;
+  border: #000 solid 1px;
+}
+
+body .contents article .my_work {
+  margin: 5% auto;
+  background: white;
+  border: #000 solid 1px;
+}
+
+body .contents article .my_work a {
+  color: #000;
+  text-decoration: none;
+}
+
+body .contents article .my_work figure {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 5%;
+  border-bottom: #000 solid 2px;
+}
+
+body .contents article .my_work figure img {
+  margin: auto 5%;
+  width: 100%;
+  border: #000 solid 1px;
+}
+
+body .contents article .my_work figure figcaption .outline {
+  width: 30em;
+  height: 7.5em;
+  text-align: left;
+}
+
+body .contents article .my_work .appendix {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  font-size: 0.9em;
+}
+
+body .contents article .my_work .appendix .edit {
+  margin-left: 3%;
+  text-align: left;
+}
+
+body .contents article .my_work .appendix .url {
+  margin-left: 3%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+body .contents article .my_work .appendix .created {
+  margin-right: 3%;
+  text-align: right;
+}
+
+body .contents article .my_work:hover {
+  background-color: #000;
+  color: gold;
+}
+
+body .contents article .my_work:hover a {
+  color: gold;
+}
+
+body .contents article .my_work:hover a h2,
+body .contents article .my_work:hover a figure {
+  border-color: gold;
+}
+
+body .contents article .detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5%;
+  margin: 5% auto;
+  background: white;
+  border: #000 solid 1px;
+}
+
+body .contents article .detail img {
+  margin: 1% 2%;
+  width: 100%;
+  border: #000 solid 1px;
+}
+
+body .contents article .detail figcaption .explaination {
+  text-align: left;
+}
+
+body .contents article .error_message {
+  color: red;
+}
+
+body .contents aside {
+  padding: 1%;
+  background-color: white;
+  border: #000 solid 1px;
+  text-align: center;
+  line-height: 2em;
+  position: fixed;
+  z-index: 900;
+  top: 20%;
+  right: 5%;
+  font-family: "Zen Kaku Gothic New";
+}
+
+/*# sourceMappingURL=style.css.map */

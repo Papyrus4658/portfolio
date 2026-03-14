@@ -1,0 +1,33 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: portfolio_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword # ローカル開発用のみ
+      MYSQL_DATABASE: portfolio_db
+      MYSQL_USER: portfolio_user
+      MYSQL_PASSWORD: portfolio_pass
+    ports:
+      - "3306:3306" # ホスト側ポート:コンテナ側ポート
+    volumes:
+      - db_data:/var/lib/mysql # データを永続化
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d # 初回起動時にSQLを自動実行
+    command: >
+      --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+  # DB の中身をブラウザで確認したい場合は以下のコメントを外す
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: portfolio_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      PMA_USER: portfolio_user
+      PMA_PASSWORD: portfolio_pass
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
