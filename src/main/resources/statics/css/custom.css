@@ -1,0 +1,387 @@
+/* ============================================================
+   Portfolio – custom.css
+   Bootstrap 5 ベース。GitHub風ダークテーマ。
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* --- カラー変数 -------------------------------------------- */
+:root {
+    --c-bg: #0d1117;
+    --c-surface: #161b22;
+    --c-border: #30363d;
+    --c-text: #e6edf3;
+    --c-muted: #8b949e;
+    --c-accent: #58a6ff;
+    --c-green: #3fb950;
+    --c-danger: #f85149;
+    --font-sans: 'Noto Sans JP', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --radius: 8px;
+    --radius-lg: 14px;
+}
+
+/* --- ベース ----------------------------------------------- */
+body {
+    font-family: var(--font-sans);
+    background: var(--c-bg);
+    color: var(--c-text);
+    line-height: 1.7;
+}
+
+a {
+    color: var(--c-accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: #79c0ff;
+}
+
+code,
+.mono {
+    font-family: var(--font-mono);
+    font-size: .875em;
+}
+
+/* --- ナビゲーション --------------------------------------- */
+.navbar {
+    background: var(--c-surface);
+    border-bottom: 1px solid var(--c-border);
+}
+
+.navbar-brand {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--c-accent) !important;
+}
+
+.navbar-brand span {
+    color: var(--c-green);
+}
+
+.nav-link {
+    color: var(--c-muted) !important;
+    font-size: .9rem;
+    transition: color .15s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--c-text) !important;
+}
+
+/* ハンバーガーアイコン色調整 */
+.navbar-toggler {
+    border-color: var(--c-border);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28139,148,158,1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* --- フッター --------------------------------------------- */
+.footer {
+    background: var(--c-surface);
+    border-top: 1px solid var(--c-border);
+    color: var(--c-muted);
+    font-size: .85rem;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+/* --- ヒーロー --------------------------------------------- */
+.hero {
+    padding: 6rem 0 4rem;
+    text-align: center;
+}
+
+.hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: .85rem;
+    color: var(--c-accent);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+}
+
+.hero-title .accent {
+    color: var(--c-accent);
+}
+
+.hero-sub {
+    font-size: 1.05rem;
+    color: var(--c-muted);
+    max-width: 500px;
+    margin: 0 auto 2rem;
+}
+
+/* --- セクション ------------------------------------------- */
+.section {
+    padding: 4rem 0;
+}
+
+.section-title {
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    color: var(--c-muted);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--c-border);
+}
+
+/* --- 作品カード ------------------------------------------- */
+.project-card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: border-color .2s, transform .2s;
+}
+
+.project-card:hover {
+    border-color: var(--c-accent);
+    transform: translateY(-3px);
+}
+
+.project-card-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background: var(--c-border);
+}
+
+.project-card-thumb-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #1c2128, #21262d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c-muted);
+    font-family: var(--font-mono);
+    font-size: .75rem;
+}
+
+.project-card-body {
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: .5rem;
+}
+
+.project-card-desc {
+    font-size: .875rem;
+    color: var(--c-muted);
+    flex: 1;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tech-badge {
+    display: inline-block;
+    background: rgba(88, 166, 255, .1);
+    border: 1px solid rgba(88, 166, 255, .25);
+    color: var(--c-accent);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    padding: 2px 7px;
+    margin: 2px;
+    white-space: nowrap;
+}
+
+/* --- ログイン / 登録フォーム ------------------------------ */
+.auth-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.auth-card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 420px;
+}
+
+.auth-card-title {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--c-accent);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* --- フォームコントロール ---------------------------------- */
+.form-label {
+    font-size: .85rem;
+    color: var(--c-muted);
+}
+
+.form-control,
+.form-select {
+    background: var(--c-bg);
+    border: 1px solid var(--c-border);
+    color: var(--c-text);
+    border-radius: var(--radius);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: var(--c-bg);
+    border-color: var(--c-accent);
+    color: var(--c-text);
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, .15);
+}
+
+.form-control::placeholder {
+    color: var(--c-muted);
+}
+
+/* --- ボタン ----------------------------------------------- */
+.btn-primary {
+    background: var(--c-accent);
+    border-color: var(--c-accent);
+    color: #0d1117;
+    font-weight: 700;
+}
+
+.btn-primary:hover {
+    background: #79c0ff;
+    border-color: #79c0ff;
+    color: #0d1117;
+}
+
+.btn-outline-secondary {
+    border-color: var(--c-border);
+    color: var(--c-muted);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--c-border);
+    color: var(--c-text);
+}
+
+.btn-outline-danger {
+    border-color: var(--c-danger);
+    color: var(--c-danger);
+}
+
+.btn-outline-danger:hover {
+    background: var(--c-danger);
+    color: #fff;
+}
+
+/* --- 管理画面テーブル ------------------------------------- */
+.admin-table {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.table {
+    margin-bottom: 0;
+    color: var(--c-text);
+}
+
+.table thead th {
+    background: rgba(48, 54, 61, .6);
+    border-color: var(--c-border);
+    font-family: var(--font-mono);
+    font-size: .73rem;
+    color: var(--c-muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: .875rem 1rem;
+}
+
+.table tbody td {
+    border-color: var(--c-border);
+    vertical-align: middle;
+    padding: .875rem 1rem;
+}
+
+.table tbody tr:hover td {
+    background: rgba(48, 54, 61, .4);
+}
+
+/* --- ステータスバッジ ------------------------------------- */
+.badge-published {
+    background: rgba(63, 185, 80, .15);
+    border: 1px solid rgba(63, 185, 80, .35);
+    color: var(--c-green);
+    border-radius: 4px;
+    font-size: .72rem;
+    font-family: var(--font-mono);
+    padding: 3px 8px;
+}
+
+.badge-draft {
+    background: rgba(139, 148, 158, .12);
+    border: 1px solid rgba(139, 148, 158, .3);
+    color: var(--c-muted);
+    border-radius: 4px;
+    font-size: .72rem;
+    font-family: var(--font-mono);
+    padding: 3px 8px;
+}
+
+.badge-hidden {
+    background: rgba(248, 81, 73, .12);
+    border: 1px solid rgba(248, 81, 73, .3);
+    color: var(--c-danger);
+    border-radius: 4px;
+    font-size: .72rem;
+    font-family: var(--font-mono);
+    padding: 3px 8px;
+}
+
+/* --- アラート --------------------------------------------- */
+.alert-success {
+    background: rgba(63, 185, 80, .1);
+    border-color: rgba(63, 185, 80, .3);
+    color: var(--c-green);
+}
+
+.alert-danger {
+    background: rgba(248, 81, 73, .1);
+    border-color: rgba(248, 81, 73, .3);
+    color: var(--c-danger);
+}

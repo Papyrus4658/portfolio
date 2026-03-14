@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout/base :: head('Blog')}"></head>
+
+<body>
+    <nav th:replace="~{layout/base :: navbar('blog')}"></nav>
+
+    <main class="section">
+        <div class="container" style="max-width:760px">
+            <h1 class="section-title">Blog</h1>
+
+            <p th:if="${#lists.isEmpty(articles)}" class="text-center py-5 mono" style="color:var(--c-muted)">
+                // no articles yet
+            </p>
+
+            <div th:unless="${#lists.isEmpty(articles)}" class="d-flex flex-column gap-4">
+                <article th:each="a : ${articles}" style="background:var(--c-surface);border:1px solid var(--c-border);
+                      border-radius:var(--radius-lg);padding:1.5rem;
+                      transition:border-color .2s" onmouseover="this.style.borderColor='var(--c-accent)'"
+                    onmouseout="this.style.borderColor='var(--c-border)'">
+                    <p class="mono mb-2" style="font-size:.75rem;color:var(--c-muted)">
+                        <i class="bi bi-calendar3 me-1"></i>
+                        <span th:text="${#temporals.format(a.publishedAt,'yyyy-MM-dd')}">2024-01-01</span>
+                    </p>
+                    <h2 style="font-size:1.15rem;font-weight:700;margin-bottom:.75rem">
+                        <a th:href="@{/blog/{id}(id=${a.id})}" th:text="${a.title}"
+                            style="color:var(--c-text)">記事タイトル</a>
+                    </h2>
+                    <a th:href="@{/blog/{id}(id=${a.id})}" class="btn btn-sm btn-outline-secondary">
+                        続きを読む <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{layout/base :: footer}"></footer>
+    <th:block th:replace="~{layout/base :: scripts}"></th:block>
+</body>
+
+</html>
