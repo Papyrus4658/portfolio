@@ -26,6 +26,8 @@ services:
 
   db:
     image: mariadb:13.0.2-ubi10
+    ports:
+      - "3306:3306"
     env_file:
       - .env
     volumes:
@@ -37,17 +39,6 @@ services:
       interval: 30s
       timeout: 1s
       retries: 5
-    networks:
-      - portfolio_network
-
-  phpmyadmin:
-    image: phpmyadmin:5.2.3
-    ports:
-      - "8081:80"
-    env_file:
-      - .env
-    depends_on:
-      - db
     networks:
       - portfolio_network
 
