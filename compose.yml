@@ -32,14 +32,22 @@ services:
       - db_data:/var/lib/mysql
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--protocol=TCP" ]
-      # 以下は適宜調整
-      # 起動するまでの30sは1s間隔で確認する
-      start_period: 30s
+      start_period: 10s
       start_interval: 1s
-      # 起動後は10s間隔で最大5回リトライする
-      interval: 10s
+      interval: 30s
       timeout: 1s
       retries: 5
+    networks:
+      - portfolio_network
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.3
+    ports:
+      - "8081:80"
+    env_file:
+      - .env
+    depends_on:
+      - db
     networks:
       - portfolio_network
 
