@@ -9,7 +9,7 @@ services:
     depends_on:
       - php
     networks:
-      - process_network
+      - portfolio_network
 
   php:
     build:
@@ -22,7 +22,7 @@ services:
       db:
         condition: service_healthy
     networks:
-      - process_network
+      - portfolio_network
 
   db:
     image: mariadb:13.0.2-ubi10
@@ -36,16 +36,16 @@ services:
       # 起動するまでの30sは1s間隔で確認する
       start_period: 30s
       start_interval: 1s
-      # 起動後は30s間隔で最大5回リトライする
-      interval: 30s
+      # 起動後は10s間隔で最大5回リトライする
+      interval: 10s
       timeout: 1s
       retries: 5
     networks:
-      - process_network
+      - portfolio_network
 
 volumes:
   db_data:
 
 networks:
-  process_network:
+  portfolio_network:
     driver: bridge
