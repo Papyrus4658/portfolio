@@ -1,10 +1,17 @@
-<?php
-$dsn = "mysql:host=" . getenv('DB_HOST') . ";dbname=" . getenv('DB_DATABASE');
+<!DOCTYPE html>
+<html lang="ja">
 
-try {
-    $pdo = new PDO($dsn, getenv('DB_USER'), getenv('DB_PASSWORD'));
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "成功";
-} catch (PDOException $e) {
-    echo "失敗";
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process</title>
+</head>
+
+<body>
+    <?php
+    $p = "index";
+    include("./layouts/template.php");
+    ?>
+</body>
+
+</html>
