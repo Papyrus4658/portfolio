@@ -3,34 +3,65 @@ include("/var/www/html/dbconnect.php");
 ?>
 
 <?php include "/var/www/html/layouts/header.php"; ?>
-<main>
-    <article>
-        <?php
-        if ($p == "index") {
-            $stmt = $pdo->query("select title,url,published_at,updated_at from works where is_published");
-            $works = $stmt->fetchAll(PDO::FETCH_ASSOC);
+<!DOCTYPE html>
+<html lang="ja">
 
-            foreach ($works as $work) {
-                echo htmlspecialchars($work["title"], ENT_QUOTES, "UTF-8") . "<br>";
-                if (is_null($work["url"])) {
-                    echo "URL無し<br>";
-                } else {
-                    echo "<a href='" .
-                        htmlspecialchars($work["url"], ENT_QUOTES, "UTF-8") .
-                        "' target='_blank'>" .
-                        htmlspecialchars($work["url"], ENT_QUOTES, "UTF-8") .
-                        "</a><br>";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress of Wisdom</title>
+</head>
 
-                }
-                echo htmlspecialchars($work["published_at"], ENT_QUOTES, "UTF-8") . "<br>";
-                echo htmlspecialchars($work["updated_at"], ENT_QUOTES, "UTF-8") . "<br>";
-                echo "<br>";
-            }
-        } else {
-        }
-        ?>
+<body>
+    <main>
+        <article>
+            <?php if ($p == "index"): ?>
+                <h1>PROCESS</h1>
 
-    </article>
-    <?php include "/var/www/html/layouts/aside.php"; ?>
-</main>
-<?php include "/var/www/html/layouts/footer.php"; ?>
+                <?php
+                $stmt = $pdo->query(
+                    "select * from works where is_published order by id"
+                );
+                $works = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+
+                <?php foreach ($works as $work): ?>
+                    <?php
+                    $id = $work["id"];
+                    $href = "details.php?id=$id";
+                    $img_src = "/articles/" . $id . "/screenshots/thumbnail.png";
+                    ?>
+
+                    <a href="<?= htmlspecialchars($href, ENT_QUOTES, "UTF-8") ?>" class=" work">
+                        <img src="<?= htmlspecialchars($img_src, ENT_QUOTES, "UTF-8") ?>" alt="サムネイル$id">
+                        <h2>
+                            <?php
+                            echo htmlspecialchars($work["title"], ENT_QUOTES, "UTF-8");
+                            ?>
+                        </h2>
+                        <p>
+                            <?php
+                            $f = fopen("/var/www/html/articles/$id/text.md", "r");
+                            $preview = fread($f, 150);
+                            fclose($f);
+                            echo $preview . "...";
+                            ?>
+                        </p>
+                    </a>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?php
+                require "vendor/autoload.php";
+                $id = $_GET["id"];
+                $fname = "articles/$id/text.md";
+
+                $Parsedown = new Parsedown();
+
+                $md = file_get_contents($fname);
+                echo $Parsedown->text($md);
+                ?>
+            <?php endif; ?>
+        </article>
+        <?php include "/var/www/html/layouts/aside.php"; ?>
+    </main>
+    <?php include "/var/www/html/layouts/footer.php"; ?>
