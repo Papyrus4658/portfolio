@@ -1,6 +1,6 @@
 <?php
 $page = "index";
-include "./layouts/template.php";
+include getenv("PHP_LAYOUTS") . "template.php";
 ?>
 </body>
 
