@@ -1,5 +1,5 @@
 <?php
-$page = "index";
+$page = "programs";
 include "./layouts/template.php";
 ?>
 </body>

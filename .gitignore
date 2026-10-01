@@ -1,4 +1,5 @@
 .env
-articles
-db
-vendor
+db/
+processes/
+programs/
+vendor/

@@ -1,5 +1,5 @@
 <?php
-include("/var/www/html/dbconnect.php");
+include "/var/www/html/dbconnect.php";
 ?>
 
 <?php include "/var/www/html/layouts/header.php"; ?>
@@ -15,51 +15,101 @@ include("/var/www/html/dbconnect.php");
 <body>
     <main>
         <article>
-            <?php if ($p == "index"): ?>
-                <h1>PROCESS</h1>
-
+            <?php if ($page === "process"): ?>
                 <?php
-                $stmt = $pdo->query(
-                    "select * from works where is_published order by id"
-                );
-                $works = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $id = $_GET["id"] ?? 1;
+                $sql = "SELECT * FROM processes WHERE id = ?";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([$id]);
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                echo "<h1>{$row['title']}</h1>";
+                echo "
+                <div class='datetime'>
+                    <small>登録日時：{$row['published_at']}</small>
+                    <small>更新日時：{$row['updated_at']}</small>
+                </div>
+                ";
+
+                require "/var/www/html/vendor/autoload.php";
+                $Parsedown = new Parsedown();
+                $Parsedown->setSafeMode(true);
+                $md = file_get_contents("/var/www/html/processes/{$id}/text.md");
+                echo $Parsedown->text($md);
                 ?>
+            <?php elseif ($page === "programs"): ?>
+                <h1>Programs</h1>
+                <?php
+                if (isset($_GET["word"])) {
+                    $word = $_GET["word"];
+                    $sql = "SELECT * FROM programs 
+                    WHERE is_published AND title LIKE ? 
+                    ORDER BY id DESC";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(["%$word%"]);
+                } elseif (isset($_GET["tag"])) {
+                    $tag = $_GET["tag"];
+                    $sql = "SELECT * FROM programs as p 
+                    INNER JOIN program_tags as pt 
+                    ON p.id = pt.program_id 
+                    WHERE is_published AND pt.tag_id = ? 
+                    ORDER BY id DESC";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute($tag);
+                } else {
+                    $sql = "SELECT * FROM programs WHERE is_published ORDER BY id DESC";
+                    $stmt = $pdo->query($sql);
+                    // $stmt = $pdo->prepare($sql);
+                    // $stmt->execute();
+                }
 
-                <?php foreach ($works as $work): ?>
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                <?php foreach ($rows as $row): ?>
                     <?php
-                    $id = $work["id"];
-                    $href = "details.php?id=$id";
-                    $img_src = "/articles/" . $id . "/screenshots/thumbnail.png";
+                    $id = $row["id"];
+                    $name = $row["name"];
+                    $url = $row["url"];
                     ?>
-
-                    <a href="<?= htmlspecialchars($href, ENT_QUOTES, "UTF-8") ?>" class=" work">
-                        <img src="<?= htmlspecialchars($img_src, ENT_QUOTES, "UTF-8") ?>" alt="サムネイル$id">
-                        <h2>
-                            <?php
-                            echo htmlspecialchars($work["title"], ENT_QUOTES, "UTF-8");
-                            ?>
-                        </h2>
-                        <p>
-                            <?php
-                            $f = fopen("/var/www/html/articles/$id/text.md", "r");
-                            $preview = fread($f, 150);
-                            fclose($f);
-                            echo $preview . "...";
-                            ?>
-                        </p>
+                    <a href="<?= $url ?>" class="program">
+                        <img src="/programs/<?= $id ?>/screenshots/thumbnail.png" alt="サムネイル<?= $id ?>">
+                        <h2><?php echo $name; ?></h2>
                     </a>
                 <?php endforeach; ?>
             <?php else: ?>
+                <h1>Processes</h1>
                 <?php
-                require "vendor/autoload.php";
-                $id = $_GET["id"];
-                $fname = "articles/$id/text.md";
-
-                $Parsedown = new Parsedown();
-
-                $md = file_get_contents($fname);
-                echo $Parsedown->text($md);
+                if (isset($_GET["word"])) {
+                    $word = $_GET["word"];
+                    $sql = "SELECT * FROM processes 
+                    WHERE is_published AND title LIKE ? 
+                    ORDER BY id DESC";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(["%$word%"]);
+                } elseif (isset($_GET["tag"])) {
+                    $tag = $_GET["tag"];
+                    $sql = "SELECT * FROM processes as p 
+                    INNER JOIN process_tags as pt 
+                    ON p.id = pt.process_id 
+                    WHERE is_published AND pt.tag_id = ? 
+                    ORDER BY id DESC";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute($tag);
+                } else {
+                    $sql = "SELECT * FROM processes WHERE is_published ORDER BY id DESC";
+                    $stmt = $pdo->query($sql);
+                }
+                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
+                <?php foreach ($rows as $row): ?>
+                    <?php
+                    $id = $row["id"];
+                    $title = $row["title"];
+                    ?>
+                    <a href="process.php?id=<?= $id ?>" class="process">
+                        <img src="/processes/<?= $id ?>/screenshots/thumbnail.png" alt="サムネイル<?= $id ?>">
+                        <h2><?php echo $title; ?></h2>
+                    </a>
+                <?php endforeach; ?>
             <?php endif; ?>
         </article>
         <?php include "/var/www/html/layouts/aside.php"; ?>

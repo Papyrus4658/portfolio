@@ -1,5 +1,5 @@
 <?php
-$page = "index";
+$page = "process";
 include "./layouts/template.php";
 ?>
 </body>
