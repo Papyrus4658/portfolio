@@ -1,0 +1,73 @@
+body {
+    font-family: "BIZ UDPMincho";
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    h1 {
+        text-align: center;
+        font-family: "Zen Antique";
+        font-style: italic;
+    }
+
+    header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        h1 {
+            text-align: left;
+            font-size: 3em;
+        }
+
+        nav {
+            place-content: center;
+            font-family: "Zen Antique";
+            font-style: italic;
+
+            ul {
+                display: grid;
+                place-items: center;
+                grid-template-columns: repeat(3, 1fr);
+
+                li {
+                    list-style: none;
+                }
+            }
+        }
+    }
+
+    main {
+        margin: 5% auto;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+
+        article {
+            .page_title {
+                margin: auto;
+                font-size: 2em;
+            }
+
+            .article {
+                margin: 5%;
+                display: grid;
+                place-items: center;
+                grid-template-columns: 1fr 3fr;
+
+                img {
+                    margin: 10%;
+                    width: 85%;
+                }
+            }
+        }
+
+        aside {
+            .tag_search {
+                display: inline-block;
+            }
+        }
+    }
+
+    footer {}
+}

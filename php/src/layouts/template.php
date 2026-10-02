@@ -71,7 +71,16 @@ $title = $page_name . getenv("SITE_NAME");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
+
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <!-- <link rel="stylesheet" href="node_modules/modern-normalize/modern-normalize.css"> -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&family=Zen+Antique&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="<?= getenv("HTML_CSS") ?>style.css">
 </head>
 
 <body>
@@ -80,7 +89,7 @@ $title = $page_name . getenv("SITE_NAME");
     ?>
     <main>
         <article>
-            <h1>
+            <h1 class="page_title">
                 <?php
                 if ($page === "article") {
                     echo $row["title"];
@@ -95,14 +104,12 @@ $title = $page_name . getenv("SITE_NAME");
                 <?php if (count($row) == 0): ?>
                     <p>該当記事が存在しません。</p>
                 <?php else: ?>
-                    <div class='datetime'>
-                        <small>登録日時：
-                            <?= $row["published_at"] ?>
-                        </small>
-                        <small>更新日時：
-                            <?= $row["updated_at"] ?>
-                        </small>
-                    </div>
+                    <small>登録日時：
+                        <?= $row["published_at"] ?>
+                    </small>
+                    <small>更新日時：
+                        <?= $row["updated_at"] ?>
+                    </small>
 
                     <?php
                     $vars = [
@@ -141,7 +148,7 @@ $title = $page_name . getenv("SITE_NAME");
                 <?php endif; ?>
             <?php else: ?>
                 <?php if (count($rows) == 0): ?>
-                    <p>現在公開されている記事はありません。</p>
+                    <p>記事が見つかりませんでした。</p>
                 <?php else: ?>
                     <?php foreach ($rows as $row): ?>
                         <?php

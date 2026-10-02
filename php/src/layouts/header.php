@@ -1,22 +1,26 @@
 <header>
-    <h1><?= getenv("SITE_NAME") ?></h1>
-    <nav class="contents">
+    <h1>
+        <a href="<?= getenv("HTML_ROOT_DIR") ?>">
+            <?= getenv("SITE_NAME") ?>
+        </a>
+    </h1>
+    <nav>
         <ul>
-            <li>
-                <a href="<?= getenv("HTML_ROOT_DIR") ?>index.php">
+            <a href="<?= getenv("HTML_ROOT_DIR") ?>index.php">
+                <li>
                     <?= getenv("ARTICLES") ?>
-                </a>
-            </li>
-            <li>
-                <a href="<?= getenv("HTML_ROOT_DIR") ?>works.php">
+                </li>
+            </a>
+            <a href="<?= getenv("HTML_ROOT_DIR") ?>works.php">
+                <li>
                     <?= getenv("WORKS") ?>
-                </a>
-            </li>
-            <li>
-                <a href="https://codeberg.org/rogue2651/portfolio">
+                </li>
+            </a>
+            <a href="https://codeberg.org/rogue2651/portfolio" target="_blank">
+                <li>
                     <?= getenv("SOURCECODE") ?>
-                </a>
-            </li>
+                </li>
+            </a>
         </ul>
     </nav>
 </header>

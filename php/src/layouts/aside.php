@@ -31,16 +31,19 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <button type="submit">検索</button>
     </form>
 
+    <p>タグ検索</p>
     <?php if (count($rows) == 0): ?>
         <p>現在有効なタグはありません。</p>
     <?php else: ?>
         <?php foreach ($rows as $row): ?>
-            <form action="<?= $action ?>" method="get" class="tag_search">
-                <input type="hidden" name="tag" id="tag" value="<?= $row["id"] ?>">
-                <button type="submit">
-                    <?= $row["name"] ?>
-                </button>
-            </form>
+            <div class="tag_search">
+                <form action="<?= $action ?>" method="get">
+                    <input type="hidden" name="tag" id="tag" value="<?= $row["id"] ?>">
+                    <button type="submit">
+                        <?= $row["name"] ?>
+                    </button>
+                </form>
+            </div>
         <?php endforeach; ?>
     <?php endif; ?>
 </aside>
