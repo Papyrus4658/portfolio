@@ -3,32 +3,32 @@ include getenv("PHP_ROOT_DIR") . "/dbconnect.php";
 
 $page_name = "";
 
-if ($page === "process") {
+if ($page === "article") {
     $id = $_GET["id"] ?? 1;
-    $sql = "SELECT * FROM processes WHERE id = ?";
+    $sql = "SELECT * FROM articles WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $page_name = $row["title"] . " | ";
-} elseif ($page === "programs") {
+} elseif ($page === "works") {
     if (isset($_GET["word"])) {
         $word = $_GET["word"];
-        $sql = "SELECT * FROM programs 
+        $sql = "SELECT * FROM works 
                     WHERE is_published AND name LIKE ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(["%$word%"]);
     } elseif (isset($_GET["tag"])) {
         $tag = $_GET["tag"];
-        $sql = "SELECT * FROM programs as p 
-                    INNER JOIN program_tags as pt 
-                    ON p.id = pt.program_id 
+        $sql = "SELECT * FROM works as p 
+                    INNER JOIN work_tags as pt 
+                    ON p.id = pt.work_id 
                     WHERE is_published AND pt.tag_id = ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute($tag);
     } else {
-        $sql = "SELECT * FROM programs WHERE is_published ORDER BY id DESC";
+        $sql = "SELECT * FROM works WHERE is_published ORDER BY id DESC";
         $stmt = $pdo->query($sql);
     }
 
@@ -38,22 +38,22 @@ if ($page === "process") {
 } else {
     if (isset($_GET["word"])) {
         $word = $_GET["word"];
-        $sql = "SELECT * FROM processes 
+        $sql = "SELECT * FROM articles 
                     WHERE is_published AND title LIKE ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(["%$word%"]);
     } elseif (isset($_GET["tag"])) {
         $tag = (int) $_GET["tag"];
-        $sql = "SELECT * FROM processes as p 
-                    INNER JOIN process_tags as pt 
-                    ON p.id = pt.process_id 
+        $sql = "SELECT * FROM articles as p 
+                    INNER JOIN article_tags as pt 
+                    ON p.id = pt.article_id 
                     WHERE is_published AND pt.tag_id = ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$tag]);
     } else {
-        $sql = "SELECT * FROM processes WHERE is_published ORDER BY id DESC";
+        $sql = "SELECT * FROM articles WHERE is_published ORDER BY id DESC";
         $stmt = $pdo->query($sql);
     }
 
@@ -71,6 +71,7 @@ $title = $page_name . getenv("SITE_NAME");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 </head>
 
 <body>
@@ -79,7 +80,18 @@ $title = $page_name . getenv("SITE_NAME");
     ?>
     <main>
         <article>
-            <?php if ($page === "process"): ?>
+            <h1>
+                <?php
+                if ($page === "article") {
+                    echo $row["title"];
+                } elseif ($page === "works") {
+                    echo getenv("WORKS");
+                } else {
+                    echo getenv("ARTICLES");
+                }
+                ?>
+            </h1>
+            <?php if ($page === "article"): ?>
                 <?php if (count($row) == 0): ?>
                     <p>該当記事が存在しません。</p>
                 <?php else: ?>
@@ -94,11 +106,11 @@ $title = $page_name . getenv("SITE_NAME");
 
                     <?php
                     $vars = [
-                        "{{PROCESSES}}" => getenv("HTML_PROCESSES"),
+                        "{{ARTICLES}}" => getenv("HTML_ARTICLES"),
                         "{{ID}}" => $row["id"],
                     ];
 
-                    $md = file_get_contents(getenv('PHP_PROCESSES') . "{$id}/text.md");
+                    $md = file_get_contents(getenv('PHP_ARTICLES') . "{$id}/text.md");
                     $md = strtr($md, $vars);
 
                     require getenv("PHP_VENDOR") . "autoload.php";
@@ -108,7 +120,7 @@ $title = $page_name . getenv("SITE_NAME");
                     echo $text;
                     ?>
                 <?php endif; ?>
-            <?php elseif ($page === "programs"): ?>
+            <?php elseif ($page === "works"): ?>
                 <?php if (count($rows) == 0): ?>
                     <p>現在登録されている作品はありません。</p>
                 <?php else: ?>
@@ -118,9 +130,9 @@ $title = $page_name . getenv("SITE_NAME");
                         $name = $row["name"];
                         $url = $row["url"];
                         ?>
-                        <a href="<?= $url ?>" target="_blank" class="program">
+                        <a href="<?= $url ?>" target="_blank" class="work">
                             <?php
-                            $img_src = getenv("HTML_PROGRAMS") . $id . "/screenshots/thumbnail.png";
+                            $img_src = getenv("HTML_WORKS") . $id . "/screenshots/thumbnail.png";
                             ?>
                             <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
                             <h2><?php echo $name; ?></h2>
@@ -136,9 +148,9 @@ $title = $page_name . getenv("SITE_NAME");
                         $id = $row["id"];
                         $title = $row["title"];
                         ?>
-                        <a href="process.php?id=<?= $id ?>" class="process">
+                        <a href="article.php?id=<?= $id ?>" class="article">
                             <?php
-                            $img_src = getenv("HTML_PROCESSES") . $id . "/screenshots/thumbnail.png";
+                            $img_src = getenv("HTML_ARTICLES") . $id . "/screenshots/thumbnail.png";
                             ?>
                             <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
                             <h2><?php echo $title; ?></h2>

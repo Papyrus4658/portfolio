@@ -1,11 +1,11 @@
 <?php
-if ($page === "programs") {
+if ($page === "works") {
     $form_label = "作品を検索";
-    $action = "programs.php";
+    $action = "works.php";
     $sql = "SELECT t.id,t.name FROM tags as t 
                 WHERE t.id = (
                     SELECT DISTINCT pt.tag_id 
-                    FROM program_tags as pt 
+                    FROM work_tags as pt 
                     WHERE t.id = pt.tag_id
                 ) ORDER BY t.id";
 } else {
@@ -14,13 +14,11 @@ if ($page === "programs") {
     $sql = "SELECT t.id,t.name FROM tags as t 
                 WHERE t.id = (
                     SELECT DISTINCT pt.tag_id 
-                    FROM process_tags as pt 
+                    FROM article_tags as pt 
                     WHERE t.id = pt.tag_id
                 ) ORDER BY t.id";
 }
 
-// タグを取得
-// $sql = "SELECT * FROM tags ORDER BY id";
 $stmt = $pdo->query($sql);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -33,12 +31,16 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <button type="submit">検索</button>
     </form>
 
-    <?php foreach ($rows as $row): ?>
-        <form action="<?= $action ?>" method="get" class="tag_search">
-            <input type="hidden" name="tag" id="tag" value="<?= $row["id"] ?>">
-            <button type="submit">
-                <?= $row["name"] ?>
-            </button>
-        </form>
-    <?php endforeach; ?>
+    <?php if (count($rows) == 0): ?>
+        <p>現在有効なタグはありません。</p>
+    <?php else: ?>
+        <?php foreach ($rows as $row): ?>
+            <form action="<?= $action ?>" method="get" class="tag_search">
+                <input type="hidden" name="tag" id="tag" value="<?= $row["id"] ?>">
+                <button type="submit">
+                    <?= $row["name"] ?>
+                </button>
+            </form>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </aside>
