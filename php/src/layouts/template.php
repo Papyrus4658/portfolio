@@ -9,13 +9,12 @@ if ($page === "process") {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
     $page_name = $row["title"] . " | ";
 } elseif ($page === "programs") {
     if (isset($_GET["word"])) {
         $word = $_GET["word"];
         $sql = "SELECT * FROM programs 
-                    WHERE is_published AND title LIKE ? 
+                    WHERE is_published AND name LIKE ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(["%$word%"]);
@@ -45,18 +44,19 @@ if ($page === "process") {
         $stmt = $pdo->prepare($sql);
         $stmt->execute(["%$word%"]);
     } elseif (isset($_GET["tag"])) {
-        $tag = $_GET["tag"];
+        $tag = (int) $_GET["tag"];
         $sql = "SELECT * FROM processes as p 
                     INNER JOIN process_tags as pt 
                     ON p.id = pt.process_id 
                     WHERE is_published AND pt.tag_id = ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute($tag);
+        $stmt->execute([$tag]);
     } else {
         $sql = "SELECT * FROM processes WHERE is_published ORDER BY id DESC";
         $stmt = $pdo->query($sql);
     }
+
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $page_name = "トップページ | ";
@@ -64,7 +64,6 @@ if ($page === "process") {
 
 $title = $page_name . getenv("SITE_NAME");
 ?>
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -75,69 +74,77 @@ $title = $page_name . getenv("SITE_NAME");
 </head>
 
 <body>
-    <?php include getenv("PHP_LAYOUTS") . "header.php"; ?>
+    <?php
+    include getenv("PHP_LAYOUTS") . "header.php";
+    ?>
     <main>
         <article>
             <?php if ($page === "process"): ?>
-                <h1><?= $row["title"] ?></h1>
+                <?php if (count($row) == 0): ?>
+                    <p>該当記事が存在しません。</p>
+                <?php else: ?>
+                    <div class='datetime'>
+                        <small>登録日時：
+                            <?= $row["published_at"] ?>
+                        </small>
+                        <small>更新日時：
+                            <?= $row["updated_at"] ?>
+                        </small>
+                    </div>
 
-                <div class='datetime'>
-                    <small>登録日時：
-                        <?= $row["published_at"] ?>
-                    </small>
-                    <small>更新日時：
-                        <?= $row["updated_at"] ?>
-                    </small>
-                </div>
+                    <?php
+                    $vars = [
+                        "{{PROCESSES}}" => getenv("HTML_PROCESSES"),
+                        "{{ID}}" => $row["id"],
+                    ];
 
-                <?php
-                $vars = [
-                    "{{PROCESSES}}" => getenv("HTML_PROCESSES"),
-                    "{{ID}}" => $row["id"],
-                ];
+                    $md = file_get_contents(getenv('PHP_PROCESSES') . "{$id}/text.md");
+                    $md = strtr($md, $vars);
 
-                $md = file_get_contents(getenv('PHP_PROCESSES') . "{$id}/text.md");
-                $md = strtr($md, $vars);
-
-                require getenv("PHP_VENDOR") . "autoload.php";
-                $Parsedown = new Parsedown();
-                $Parsedown->setSafeMode(true);
-                $text = $Parsedown->text($md);
-                echo $text;
-                ?>
+                    require getenv("PHP_VENDOR") . "autoload.php";
+                    $Parsedown = new Parsedown();
+                    $Parsedown->setSafeMode(true);
+                    $text = $Parsedown->text($md);
+                    echo $text;
+                    ?>
+                <?php endif; ?>
             <?php elseif ($page === "programs"): ?>
-                <h1>Programs</h1>
-
-                <?php foreach ($rows as $row): ?>
-                    <?php
-                    $id = $row["id"];
-                    $name = $row["name"];
-                    $url = $row["url"];
-                    ?>
-                    <a href="<?= $url ?>" target="_blank" class="program">
+                <?php if (count($rows) == 0): ?>
+                    <p>現在登録されている作品はありません。</p>
+                <?php else: ?>
+                    <?php foreach ($rows as $row): ?>
                         <?php
-                        $img_src = getenv("HTML_PROGRAMS") . $id . "/screenshots/thumbnail.png";
+                        $id = $row["id"];
+                        $name = $row["name"];
+                        $url = $row["url"];
                         ?>
-                        <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
-                        <h2><?php echo $name; ?></h2>
-                    </a>
-                <?php endforeach; ?>
+                        <a href="<?= $url ?>" target="_blank" class="program">
+                            <?php
+                            $img_src = getenv("HTML_PROGRAMS") . $id . "/screenshots/thumbnail.png";
+                            ?>
+                            <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
+                            <h2><?php echo $name; ?></h2>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             <?php else: ?>
-                <h1>Processes</h1>
-
-                <?php foreach ($rows as $row): ?>
-                    <?php
-                    $id = $row["id"];
-                    $title = $row["title"];
-                    ?>
-                    <a href="process.php?id=<?= $id ?>" class="process">
+                <?php if (count($rows) == 0): ?>
+                    <p>現在公開されている記事はありません。</p>
+                <?php else: ?>
+                    <?php foreach ($rows as $row): ?>
                         <?php
-                        $img_src = getenv("HTML_PROCESSES") . $id . "/screenshots/thumbnail.png";
+                        $id = $row["id"];
+                        $title = $row["title"];
                         ?>
-                        <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
-                        <h2><?php echo $title; ?></h2>
-                    </a>
-                <?php endforeach; ?>
+                        <a href="process.php?id=<?= $id ?>" class="process">
+                            <?php
+                            $img_src = getenv("HTML_PROCESSES") . $id . "/screenshots/thumbnail.png";
+                            ?>
+                            <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
+                            <h2><?php echo $title; ?></h2>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             <?php endif; ?>
         </article>
         <?php include getenv("PHP_LAYOUTS") . "aside.php"; ?>
