@@ -1,10 +1,6 @@
 body {
+    margin: 0;
     font-family: "BIZ UDPMincho";
-
-    a {
-        text-decoration: none;
-        color: black;
-    }
 
     h1 {
         text-align: center;
@@ -12,19 +8,28 @@ body {
         font-style: italic;
     }
 
+    h2 {
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
     header {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        border-bottom: black solid 5px;
 
         h1 {
-            text-align: left;
             font-size: 3em;
         }
 
         nav {
             place-content: center;
             font-family: "Zen Antique";
-            font-style: italic;
+            /* font-style: italic; */
 
             ul {
                 display: grid;
@@ -32,6 +37,7 @@ body {
                 grid-template-columns: repeat(3, 1fr);
 
                 li {
+                    text-align: center;
                     list-style: none;
                 }
             }
@@ -39,35 +45,62 @@ body {
     }
 
     main {
-        margin: 5% auto;
         display: grid;
         grid-template-columns: 3fr 1fr;
 
         article {
-            .page_title {
-                margin: auto;
-                font-size: 2em;
-            }
+            margin: 5%;
 
             .article {
-                margin: 5%;
                 display: grid;
                 place-items: center;
                 grid-template-columns: 1fr 3fr;
 
                 img {
-                    margin: 10%;
-                    width: 85%;
+                    width: 100%;
+                    aspect-ratio: 16/9;
+                }
+            }
+
+            .works {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+
+                .work {
+                    display: grid;
+                    grid-template-rows: 2fr 1fr;
+
+                    img {
+                        width: 100%;
+                        aspect-ratio: 16/9;
+                    }
+                }
+            }
+
+            .md {
+                font-family: "BIZ UDPMincho";
+
+                pre {
+                    code {
+                        font-family: "Source Code Pro";
+                    }
+                }
+
+                img {
+                    display: block;
+                    margin: 0 auto;
+                    text-align: center;
+                    width: 75%;
                 }
             }
         }
 
         aside {
+            text-align: center;
+
             .tag_search {
                 display: inline-block;
             }
         }
     }
-
-    footer {}
 }

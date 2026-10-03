@@ -8,17 +8,20 @@
         <ul>
             <a href="<?= getenv("HTML_ROOT_DIR") ?>index.php">
                 <li>
-                    <?= getenv("ARTICLES") ?>
+                    <p><?= getenv("ARTICLES") ?></p>
+                    <p>記事</p>
                 </li>
             </a>
             <a href="<?= getenv("HTML_ROOT_DIR") ?>works.php">
                 <li>
-                    <?= getenv("WORKS") ?>
+                    <p><?= getenv("WORKS") ?></p>
+                    <p>作品</p>
                 </li>
             </a>
             <a href="https://codeberg.org/rogue2651/portfolio" target="_blank">
                 <li>
-                    <?= getenv("SOURCECODE") ?>
+                    <p><?= getenv("SOURCECODE") ?></p>
+                    <p>サイトのソースコード</p>
                 </li>
             </a>
         </ul>

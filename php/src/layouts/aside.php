@@ -26,12 +26,16 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h1>検索</h1>
 
     <form action="<?= $action ?>" method="get" class="word_search">
-        <label for="word"><?= $form_label ?></label>
+        <h2>
+            <label for="word">
+                <?= $form_label ?>
+            </label>
+        </h2>
         <input type="text" name="word" id="word">
         <button type="submit">検索</button>
     </form>
 
-    <p>タグ検索</p>
+    <h2>タグ検索</h2>
     <?php if (count($rows) == 0): ?>
         <p>現在有効なタグはありません。</p>
     <?php else: ?>
