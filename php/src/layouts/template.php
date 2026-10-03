@@ -6,10 +6,15 @@ $page_name = "";
 if ($page === "article") {
     $id = $_GET["id"] ?? 1;
     $sql = "SELECT * FROM articles WHERE id = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $page_name = $row["title"] . " | ";
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        $row = [];
+    }
+
+    // $page_name = ($row["title"]) ? $row["title"] . " | " : "お探しの記事は見つかりませんでした | ";
 } elseif ($page === "works") {
     if (isset($_GET["word"])) {
         $word = $_GET["word"];
@@ -19,14 +24,14 @@ if ($page === "article") {
         $stmt = $pdo->prepare($sql);
         $stmt->execute(["%$word%"]);
     } elseif (isset($_GET["tag"])) {
-        $tag = $_GET["tag"];
-        $sql = "SELECT * FROM works as p 
-                    INNER JOIN work_tags as pt 
-                    ON p.id = pt.work_id 
-                    WHERE is_published AND pt.tag_id = ? 
+        $tag = (int) $_GET["tag"];
+        $sql = "SELECT * FROM works as w
+                    INNER JOIN work_tags as wt
+                    ON id = work_id 
+                    WHERE is_published AND tag_id = ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute($tag);
+        $stmt->execute([$tag]);
     } else {
         $sql = "SELECT * FROM works WHERE is_published ORDER BY id DESC";
         $stmt = $pdo->query($sql);
@@ -45,10 +50,10 @@ if ($page === "article") {
         $stmt->execute(["%$word%"]);
     } elseif (isset($_GET["tag"])) {
         $tag = (int) $_GET["tag"];
-        $sql = "SELECT * FROM articles as p 
-                    INNER JOIN article_tags as pt 
-                    ON p.id = pt.article_id 
-                    WHERE is_published AND pt.tag_id = ? 
+        $sql = "SELECT * FROM articles as a
+                    INNER JOIN article_tags as at
+                    ON id = article_id 
+                    WHERE is_published AND tag_id = ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$tag]);
@@ -72,20 +77,28 @@ $title = $page_name . getenv("SITE_NAME");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
 
-    <!-- <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css"> -->
-    <link rel="stylesheet" href="node_modules/modern-normalize/modern-normalize.css">
+    <!-- リセットcss -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <!-- <link rel="stylesheet" href="node_modules/modern-normalize/modern-normalize.css"> -->
 
+    <!-- googleフォント -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Zen+Antique&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="<?= getenv("HTML_CSS") ?>style.css">
+    <!-- google icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/vs.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- シンタックスハイライト -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/base16/solarized-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <!-- 自分のcss -->
+    <link rel="stylesheet" href="<?= getenv("HTML_CSS") ?>style.css">
 </head>
 
 <body>
@@ -97,7 +110,9 @@ $title = $page_name . getenv("SITE_NAME");
             <h1 class="page_title">
                 <?php
                 if ($page === "article") {
-                    echo $row["title"];
+                    if (isset($row["title"])) {
+                        echo $row["title"];
+                    }
                 } elseif ($page === "works") {
                     echo getenv("WORKS");
                 } else {
@@ -108,7 +123,7 @@ $title = $page_name . getenv("SITE_NAME");
             <?php if ($page === "article"): ?>
                 <div class="md">
                     <?php if (count($row) == 0): ?>
-                        <p>該当記事が存在しません。</p>
+                        <p>お探しの記事は存在しないか非公開となっています。</p>
                     <?php else: ?>
                         <img src="<?= getenv("HTML_ARTICLES") ?><?= $row["id"] ?>/screenshots/thumbnail.png" alt="サムネイル"
                             class="thumbnail">
@@ -140,7 +155,7 @@ $title = $page_name . getenv("SITE_NAME");
                 </div>
             <?php elseif ($page === "works"): ?>
                 <?php if (count($rows) == 0): ?>
-                    <p>現在登録されている作品はありません。</p>
+                    <p>作品が見つかりませんでした。</p>
                 <?php else: ?>
                     <div class="works">
                         <?php foreach ($rows as $row): ?>
@@ -154,14 +169,17 @@ $title = $page_name . getenv("SITE_NAME");
                                 $img_src = getenv("HTML_WORKS") . $id . "/screenshots/thumbnail.png";
                                 ?>
                                 <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
-                                <h2><?php echo $name; ?></h2>
+                                <h2>
+                                    <?php echo $name; ?>
+                                    <span class="material-symbols-outlined">open_in_new</span>
+                                </h2>
                             </a>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
             <?php else: ?>
                 <?php if (count($rows) == 0): ?>
-                    <p>記事が見つかりませんでした。</p>
+                    <p>記事は見つかりませんでした。</p>
                 <?php else: ?>
                     <?php foreach ($rows as $row): ?>
                         <?php
