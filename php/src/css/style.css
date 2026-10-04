@@ -1,123 +1,128 @@
 @import url(./colors.css);
 @import url(./fonts.css);
 
-body {
-    h1 {
-        text-align: center;
-    }
+li {
+    /* リストの点を消す */
+    list-style: none;
+}
 
-    h2 {
-        text-align: center;
-    }
+nav {
+    place-content: center;
 
-    li {
-        list-style: none;
-    }
-
-    header {
+    ul {
+        /* 要素を横並びにする */
         display: grid;
-        grid-template-columns: 1fr 1fr;
-
-        nav {
-            place-content: center;
-
-            ul {
-                display: grid;
-                place-items: center;
-                grid-template-columns: repeat(3, 1fr);
-
-                li {
-                    text-align: center;
-                }
-            }
-        }
+        grid-auto-flow: column;
     }
+}
 
-    main {
-        display: grid;
-        grid-template-columns: 3fr 1fr;
-        background: linear-gradient(white, var(--shironeri));
+header {
+    /* 要素を横並びにする */
+    display: grid;
+    grid-auto-flow: column;
+}
 
-        article {
-            .article {
-                display: grid;
-                place-items: center;
-                grid-template-columns: 1fr 2fr;
+main {
+    /* articleとasideを3:1で横並びにする */
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 5%;
 
-                img {
-                    width: 75%;
-                    aspect-ratio: 16/9;
-                }
-            }
+    article {
+        margin: 5%;
 
-            .works {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-
-                .work {
-                    display: grid;
-                    grid-template-rows: 3fr 1fr;
-                    border-radius: 2.5vw;
-                    place-items: center;
-
-                    img {
-                        width: 100%;
-                        height: auto;
-                        aspect-ratio: 16/9;
-                    }
-                }
-            }
-
-            .md {
-
-                pre {
-                    code {
-                        border: var(--nezumi) solid 3px;
-                        border-radius: 2.5vw;
-                    }
-                }
-
-                img {
-                    display: block;
-                    text-align: center;
-                    width: 75%;
-                }
-            }
-        }
-
-        aside {
-            text-align: center;
-
-            .search {
-                position: sticky;
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr;
-
-                .word_search {
-                    display: grid;
-                    grid-auto-flow: column;
-
-                    input {
-                        border-radius: 2.5vw;
-                    }
-                }
-
-                .tag_search {
-                    a {
-                        float: left;
-                        border-radius: 2.5vw;
-                    }
-                }
-            }
-        }
-    }
-
-    footer {
-        ul {
+        .heading {
+            margin-top: 5%;
+            /* 記事一覧のサムネイルとタイトルを1:2で横並びにする */
             display: grid;
+            grid-template-columns: 1fr 2fr;
+
+            /* 要素を上下左右中央揃えにする */
             place-items: center;
-            grid-template-columns: repeat(3, 1fr);
+
+            img {
+                margin: 10%;
+                width: 75%;
+                aspect-ratio: 16/9;
+            }
+        }
+
+        .works {
+            margin-top: 5%;
+            /* 作品を1列3つずつ配置する */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5%;
+
+            .work {
+                /* 作品のサムネイルと名前を3:1で縦並びにする */
+                display: grid;
+                grid-template-rows: 4fr 1fr;
+
+                /* 要素を上下左右中央揃えにする */
+                place-items: center;
+
+                border-radius: 2.5vw;
+
+                img {
+                    object-fit: cover;
+                    max-width: 100%;
+                    aspect-ratio: 4/3;
+                }
+            }
+        }
+
+        .md {
+            border-radius: 2.5vw;
+
+            img {
+                width: 75%;
+            }
+
+            pre {
+                code {
+                    border-radius: 2.5vw;
+                }
+            }
+        }
+    }
+
+    .search {
+        margin: 5%;
+        /* 検索欄はスクロールしてもこの位置で固定する */
+        position: sticky;
+        top: 5%;
+
+        display: grid;
+
+        /* ワード検索欄とタグ検索欄は縦に分ける */
+        grid-template-columns: 1fr;
+
+        /* ワード検索のスペースは最小限、残りをタグ検索 */
+        grid-template-rows: auto 1fr;
+
+        gap: 10%;
+
+        .word_search {
+            display: grid;
+            grid-auto-flow: column;
+
+            input {
+                width: 100%;
+                border-radius: 2.5vw;
+            }
+        }
+
+        .tag_search {
+            a {
+                margin: 1%;
+                padding: 2%;
+
+                /* タグを横並びにする */
+                float: left;
+
+                border-radius: 2.5vw;
+            }
         }
     }
 }

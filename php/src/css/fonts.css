@@ -1,6 +1,14 @@
 body {
     font-family: "BIZ UDPMincho";
 
+    h1 {
+        font-family: "Zen Antique";
+    }
+
+    .material-symbols-outlined {
+        font-size: 1em;
+    }
+
     header {
         font-family: "Zen Antique";
         font-style: italic;
@@ -14,8 +22,11 @@ body {
         }
     }
 
-    .page_title {
-        font-size: 2.5em;
-        font-family: "Zen Antique";
+    .word_search {
+        font-size: 2em;
+    }
+
+    code {
+        font-family: "Source Code Pro";
     }
 }

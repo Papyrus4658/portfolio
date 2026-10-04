@@ -186,7 +186,7 @@ $title = $page_name . getenv("SITE_NAME");
                         $id = $row["id"];
                         $title = $row["title"];
                         ?>
-                        <a href="article.php?id=<?= $id ?>" class="article">
+                        <a href="article.php?id=<?= $id ?>" class="heading">
                             <?php
                             $img_src = getenv("HTML_ARTICLES") . $id . "/screenshots/thumbnail.png";
                             ?>

@@ -1,8 +1,11 @@
 :root {
+    /* headingホバー影 */
+    --ankoku: #00001c;
+
     /*page_title文字*/
     --binrojizome: #000026;
 
-    /*input枠線*/
+    /* footer背景色end */
     --fushikane: #051419;
 
     --genjinezu: #a5a0a0;
@@ -10,7 +13,11 @@
     /* footer文字 */
     --geppaku: #f6f7f8;
 
+    /* main背景色end */
     --ginhakushoku: #f6f6f6;
+
+    /* headingホバー文字 */
+    --gohuniro: #fffffc;
 
     /*tagホバー背景色end*/
     --hai: #767676;
@@ -21,17 +28,28 @@
     /*header背景色end*/
     --ibushigin: #646364;
 
+    /* headingホバー背景色start&枠線 */
     --kasumi: #d8d6d7;
+
+    /* aside枠線 */
+    --keshizumi: #76726f;
+
+    /* main背景色start */
     --kinari: #fbfaf3;
 
-    /* article画像影 */
+    /* word_search入力文字 */
+    --kuro: #080808;
+
     --namagaki: #f5f4eb;
 
     /* workホバー背景色end */
     --namari: #7a7c7d;
 
-    /*footer背景色start&上線*/
+    /* headingホバー背景色end */
     --nezumi: #949495;
+
+    /* code枠線 */
+    --nibi: #666464;
 
     /*a枠線*/
     --shikoku: #212121;
@@ -39,12 +57,19 @@
     /* workホバー文字 */
     --shinzyu: #fbfbf8;
 
+    /* md背景色 */
+    --shiro: #fffffe;
+
     /*header文字*/
     --shironeri: #fcfaf2;
 
+    /* heading画像影 */
     --sobakiri: #e1e5e4;
 
-    /* footer背景色end */
+    /* md文字 */
+    --soukoku: #000023;
+
+    /*footer背景色start&上線*/
     --sumi: #373737;
 
     /* header背景色start&下線 */
@@ -60,35 +85,51 @@
     --usuzumi: #bdbebe;
 }
 
-body {
-    a {
-        text-decoration: none;
-        color: var(--tetuguro);
+a {
+    text-decoration: none;
+    color: var(--tetuguro);
+}
+
+header {
+    background: linear-gradient(135deg, var(--suzu), var(--ibushigin));
+    border-bottom: var(--suzu) solid 5px;
+
+    h1 {
+        color: var(--shironeri);
     }
 
-    header {
-        background: linear-gradient(135deg, var(--suzu), var(--ibushigin));
-        border-bottom: var(--suzu) solid 5px;
-
-        h1 {
-            color: var(--shironeri);
-        }
-
-        li {
-            color: var(--shironeri);
-        }
+    li {
+        color: var(--shironeri);
     }
+}
+
+main {
+    background: linear-gradient(135deg, var(--kinari), var(--ginhakushoku));
 
     article {
         .page_title {
             color: var(--binrojizome);
         }
 
-        .article {
+        .heading {
             border-bottom: var(--shikoku) solid 3px;
 
             img {
-                box-shadow: 0.5vw 1vh 0 var(--namagaki);
+                box-shadow: 0.5vw 1vh 0 var(--sobakiri);
+            }
+        }
+
+        .heading:hover {
+            background: linear-gradient(135deg, var(--kasumi), var(--nezumi));
+            box-shadow: 1vw 2vh 0 var(--ankoku);
+            border-bottom: var(--kasumi) solid 3px;
+            /* border-top: var(--kasumi) solid 3px; */
+            /* border-left: var(--kasumi) solid 3px; */
+            /* border-bottom: var(--kasumi) solid 3px; */
+            color: var(--gohuniro);
+
+            img {
+                box-shadow: none;
             }
         }
 
@@ -111,18 +152,28 @@ body {
                 border-bottom: var(--hakkin) solid 3px;
             }
         }
+
+        .md {
+            background-color: var(--shiro);
+            color: var(--soukoku);
+
+            code {
+                border: var(--nibi) solid 3px;
+            }
+        }
     }
 
     aside {
         .word_search {
             input {
-                border: var(--fushikane) solid 2px;
+                border: var(--keshizumi) solid 2px;
+                color: var(--kuro);
             }
         }
 
         .tag_search {
             a {
-                border: var(--shikoku) solid 2px;
+                border: var(--keshizumi) solid 2px;
             }
 
             a:hover {
@@ -132,13 +183,14 @@ body {
             }
         }
     }
+}
 
-    footer {
-        background: linear-gradient(135deg, var(--nezumi), var(--sumi));
-        border-top: var(--nezumi) solid 5px;
+footer {
+    /* background: linear-gradient(135deg, var(--nezumi), var(--sumi)); */
+    background: linear-gradient(135deg, var(--sumi), var(--fushikane));
+    border-top: var(--sumi) solid 5px;
 
-        li {
-            color: var(--geppaku);
-        }
+    li {
+        color: var(--geppaku);
     }
 }
