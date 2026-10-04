@@ -1,0 +1,144 @@
+:root {
+    /*page_title文字*/
+    --binrojizome: #000026;
+
+    /*input枠線*/
+    --fushikane: #051419;
+
+    --genjinezu: #a5a0a0;
+
+    /* footer文字 */
+    --geppaku: #f6f7f8;
+
+    --ginhakushoku: #f6f6f6;
+
+    /*tagホバー背景色end*/
+    --hai: #767676;
+
+    /* workホバー背景色start&枠線 */
+    --hakkin: #e4e5e6;
+
+    /*header背景色end*/
+    --ibushigin: #646364;
+
+    --kasumi: #d8d6d7;
+    --kinari: #fbfaf3;
+
+    /* article画像影 */
+    --namagaki: #f5f4eb;
+
+    /* workホバー背景色end */
+    --namari: #7a7c7d;
+
+    /*footer背景色start&上線*/
+    --nezumi: #949495;
+
+    /*a枠線*/
+    --shikoku: #212121;
+
+    /* workホバー文字 */
+    --shinzyu: #fbfbf8;
+
+    /*header文字*/
+    --shironeri: #fcfaf2;
+
+    --sobakiri: #e1e5e4;
+
+    /* footer背景色end */
+    --sumi: #373737;
+
+    /* header背景色start&下線 */
+    --suzu: #b9bbbd;
+
+    /* a文字 */
+    --tetuguro: #232323;
+
+    /* tagホバー文字 */
+    --unohana: #fdfcfa;
+
+    /*tagホバー背景色start&枠線*/
+    --usuzumi: #bdbebe;
+}
+
+body {
+    a {
+        text-decoration: none;
+        color: var(--tetuguro);
+    }
+
+    header {
+        background: linear-gradient(135deg, var(--suzu), var(--ibushigin));
+        border-bottom: var(--suzu) solid 5px;
+
+        h1 {
+            color: var(--shironeri);
+        }
+
+        li {
+            color: var(--shironeri);
+        }
+    }
+
+    article {
+        .page_title {
+            color: var(--binrojizome);
+        }
+
+        .article {
+            border-bottom: var(--shikoku) solid 3px;
+
+            img {
+                box-shadow: 0.5vw 1vh 0 var(--namagaki);
+            }
+        }
+
+        .works {
+            .work {
+                border: var(--shikoku) solid 3px;
+
+                img {
+                    border-bottom: var(--shikoku) solid 3px;
+                }
+            }
+        }
+
+        .work:hover {
+            background: linear-gradient(135deg, var(--hakkin), var(--namari));
+            border: var(--hakkin) solid 3px;
+            color: var(--shinzyu);
+
+            img {
+                border-bottom: var(--hakkin) solid 3px;
+            }
+        }
+    }
+
+    aside {
+        .word_search {
+            input {
+                border: var(--fushikane) solid 2px;
+            }
+        }
+
+        .tag_search {
+            a {
+                border: var(--shikoku) solid 2px;
+            }
+
+            a:hover {
+                background: linear-gradient(135deg, var(--usuzumi), var(--hai));
+                border: var(--usuzumi) solid 2px;
+                color: var(--unohana);
+            }
+        }
+    }
+
+    footer {
+        background: linear-gradient(135deg, var(--nezumi), var(--sumi));
+        border-top: var(--nezumi) solid 5px;
+
+        li {
+            color: var(--geppaku);
+        }
+    }
+}

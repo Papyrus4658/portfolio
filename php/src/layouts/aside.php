@@ -1,6 +1,5 @@
 <?php
 if ($page === "works") {
-    $form_label = "作品を検索";
     $action = "works.php";
     $sql = "SELECT t.id, name
                 FROM tags as t
@@ -16,7 +15,6 @@ if ($page === "works") {
                     )
                 ORDER BY t.id";
 } else {
-    $form_label = "記事を検索";
     $action = "index.php";
     $sql = "SELECT t.id, name
                 FROM tags as t
@@ -37,32 +35,25 @@ $stmt = $pdo->query($sql);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <aside>
-    <h1><?= $form_label ?></h1>
+    <div class="search">
+        <form action="<?= $action ?>" method="get" class="word_search">
+            <input type="text" name="word" id="word">
+            <button type="submit">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </form>
 
-    <form action="<?= $action ?>" method="get" class="word_search">
-        <input type="text" name="word" id="word">
-        <button type="submit">
-            <span class="material-symbols-outlined">search</span>
-        </button>
-    </form>
-
-    <?php if (count($rows) == 0): ?>
-        <p>現在有効なタグはありません。</p>
-    <?php else: ?>
-        <div class="tag_search">
-            <?php foreach ($rows as $row): ?>
-                <!-- <form action="<?= $action ?>" method="get">
-                    <input type="hidden" name="tag" id="tag" value="<?= $row["id"] ?>">
-                    <button type="submit">
+        <?php if (count($rows) == 0): ?>
+            <p>現在有効なタグはありません。</p>
+        <?php else: ?>
+            <div class="tag_search">
+                <?php foreach ($rows as $row): ?>
+                    <a href="<?= $action ?>?tag=<?= $row["id"] ?>">
                         <span class="material-symbols-outlined">shoppingmode</span>
                         <?= $row["name"] ?>
-                    </button>
-                </form> -->
-                <a href="<?= $action ?>?tag=<?= $row["id"] ?>">
-                    <span class="material-symbols-outlined">shoppingmode</span>
-                    <?= $row["name"] ?>
-                </a>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
 </aside>

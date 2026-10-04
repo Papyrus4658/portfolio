@@ -17,14 +17,6 @@
                     </p>
                 </li>
             </a>
-            <a href="https://codeberg.org/rogue2651/portfolio" target="_blank">
-                <li data-en="Prototype">
-                    <p class="content_name">
-                        <?= getenv("SOURCECODE") ?>
-                        <span class="material-symbols-outlined">open_in_new</span>
-                    </p>
-                </li>
-            </a>
         </ul>
     </nav>
 </footer>
