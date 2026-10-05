@@ -92,8 +92,10 @@ $title = $page_name . getenv("SITE_NAME");
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
     <!-- シンタックスハイライト -->
-    <link rel="stylesheet"
+    <link rel="stylesheet" media="(prefers-color-scheme: light)"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/base16/solarized-light.min.css">
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/base16/solarized-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 
