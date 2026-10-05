@@ -22,6 +22,22 @@ body {
         }
     }
 
+    .heading:hover {
+        font-family: "Zen Antique";
+    }
+
+    .md {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "BIZ UDPGothic";
+        }
+    }
+
     .word_search {
         font-size: 2em;
     }
