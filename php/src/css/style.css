@@ -20,22 +20,36 @@ header {
     /* 要素を横並びにする */
     display: grid;
     grid-auto-flow: column;
+
+    h1 {
+        margin: 5% auto;
+        text-align: center;
+    }
 }
 
 main {
     /* articleとasideを3:1で横並びにする */
     display: grid;
-    grid-template-columns: 3fr 1fr;
+
+    /*
+    最小幅を0にして、中身に押し広げられないようにする。
+    こうしないと、長いコードがあるときにasideが押し出される。
+    */
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
     /* gap: 5%; */
 
     article {
         margin: 5%;
 
+        .page_title {
+            text-align: center;
+        }
+
         .heading {
             margin-top: 5%;
             /* 記事一覧のサムネイルとタイトルを1:2で横並びにする */
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1fr 1fr;
 
             /* 要素を上下左右中央揃えにする */
             place-items: center;
@@ -73,13 +87,53 @@ main {
         }
 
         .md {
+            padding: 5%;
             border-radius: 2vw;
 
             img {
+                display: block;
                 width: 75%;
             }
 
+            .thumbnail {
+                margin: 0 auto;
+            }
+
+            .datetimes {
+                place-items: end;
+
+                div {
+                    margin: 5% 0;
+                }
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                margin: 5% auto;
+            }
+
+            p {
+                margin: 5% auto;
+            }
+
+            li {
+                margin: 5% auto;
+                padding-left: 1%;
+
+                /* 記事内のみ点を付ける */
+                list-style: disc;
+
+                /* 点をliの内容領域内に入れる（paddingで一緒に移動する） */
+                list-style-position: inside;
+            }
+
             pre {
+                margin: 5% auto;
+
                 code {
                     border-radius: 2vw;
                 }
@@ -88,12 +142,12 @@ main {
     }
 
     aside {
-        margin: 10% 5%;
+        margin: 20% 5%;
 
         .search {
             /* 検索欄はスクロールしてもこの位置で固定する */
             position: sticky;
-            top: 5%;
+            top: 10%;
 
             display: grid;
 
@@ -128,6 +182,5 @@ main {
                 }
             }
         }
-
     }
 }

@@ -163,6 +163,10 @@ body {
             background-color: var(--md-bg);
             color: var(--md-text);
 
+            .datetimes {
+                border-bottom: var(--line) solid 1px;
+            }
+
             code {
                 border: var(--nezumi) solid 3px;
             }

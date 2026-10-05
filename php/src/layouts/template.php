@@ -129,13 +129,13 @@ $title = $page_name . getenv("SITE_NAME");
                     <?php else: ?>
                         <img src="<?= getenv("HTML_ARTICLES") ?><?= $row["id"] ?>/screenshots/thumbnail.png" alt="サムネイル"
                             class="thumbnail">
-                        <div>
-                            <small>
+                        <div class="datetimes">
+                            <div>
                                 登録日時：<?= $row["published_at"] ?>
-                            </small>
-                            <small>
+                            </div>
+                            <div>
                                 更新日時：<?= $row["updated_at"] ?>
-                            </small>
+                            </div>
                         </div>
 
                         <?php
