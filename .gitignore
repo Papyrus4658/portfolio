@@ -1,4 +1,5 @@
 .env
-articles
-db
-screenshots
+articles/
+db/
+vendor/
+works/

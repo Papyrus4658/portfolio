@@ -1,3 +1,3 @@
 <?php
-$page = "index";
+$page = "works";
 include getenv("PHP_LAYOUTS") . "template.php";

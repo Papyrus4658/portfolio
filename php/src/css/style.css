@@ -1,0 +1,133 @@
+@import url(./colors.css);
+@import url(./fonts.css);
+
+li {
+    /* リストの点を消す */
+    list-style: none;
+}
+
+nav {
+    place-content: center;
+
+    ul {
+        /* 要素を横並びにする */
+        display: grid;
+        grid-auto-flow: column;
+    }
+}
+
+header {
+    /* 要素を横並びにする */
+    display: grid;
+    grid-auto-flow: column;
+}
+
+main {
+    /* articleとasideを3:1で横並びにする */
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    /* gap: 5%; */
+
+    article {
+        margin: 5%;
+
+        .heading {
+            margin-top: 5%;
+            /* 記事一覧のサムネイルとタイトルを1:2で横並びにする */
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+
+            /* 要素を上下左右中央揃えにする */
+            place-items: center;
+
+            img {
+                margin: 10%;
+                width: 75%;
+                aspect-ratio: 16/9;
+            }
+        }
+
+        .works {
+            margin-top: 5%;
+            /* 作品を1列3つずつ配置する */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5%;
+
+            .work {
+                /* 作品のサムネイルと名前を3:1で縦並びにする */
+                display: grid;
+                grid-template-rows: 4fr 1fr;
+
+                /* 要素を上下左右中央揃えにする */
+                place-items: center;
+
+                border-radius: 2vw;
+
+                img {
+                    object-fit: cover;
+                    max-width: 100%;
+                    aspect-ratio: 4/3;
+                }
+            }
+        }
+
+        .md {
+            border-radius: 2vw;
+
+            img {
+                width: 75%;
+            }
+
+            pre {
+                code {
+                    border-radius: 2vw;
+                }
+            }
+        }
+    }
+
+    aside {
+        margin: 10% 5%;
+
+        .search {
+            /* 検索欄はスクロールしてもこの位置で固定する */
+            position: sticky;
+            top: 5%;
+
+            display: grid;
+
+            /* ワード検索欄とタグ検索欄は縦に分ける */
+            grid-template-columns: 1fr;
+
+            /* ワード検索のスペースは最小限、残りをタグ検索 */
+            grid-template-rows: auto 1fr;
+
+            gap: 10%;
+
+            .word_search {
+                display: grid;
+                grid-auto-flow: column;
+
+                input {
+                    padding: 0 5%;
+                    width: 100%;
+                    border-radius: 2vw;
+                }
+            }
+
+            .tag_search {
+                a {
+                    margin: 1%;
+                    padding: 2%;
+
+                    /* タグを横並びにする */
+                    float: left;
+
+                    border-radius: 2vw;
+                }
+            }
+        }
+
+    }
+}
