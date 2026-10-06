@@ -103,17 +103,17 @@ $title = $page_name . getenv("SITE_NAME");
     <link rel="stylesheet" href="<?= getenv("HTML_CSS") ?>style.css">
 </head>
 
-<body>
+<body id="page_top">
     <?php
     include getenv("PHP_LAYOUTS") . "header.php";
     ?>
     <main>
         <a href="#page_top" class="page_top_btn">
             <span class="material-symbols-outlined">
-                expand_circle_up
+                keyboard_arrow_up
             </span>
         </a>
-        <article id="page_top">
+        <article>
             <h1 class="page_title">
                 <?php
                 if ($page === "article") {

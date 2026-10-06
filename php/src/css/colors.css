@@ -134,8 +134,8 @@ body {
         }
 
         .heading {
-            border-bottom: var(--line) solid 3px;
-            transition: all 0.3s ease;
+            /* border-bottom: var(--line) solid 3px; */
+            transition:all 0.3s ease;
 
             img {
                 box-shadow: 0.5vw 1vh 0 var(--thumb-shadow);
@@ -175,12 +175,8 @@ body {
             background-color: var(--md-bg);
             color: var(--md-text);
 
-            .datetimes {
-                border-bottom: var(--line) solid 1px;
-            }
-
             code {
-                border: var(--nezumi) solid 3px;
+                /* border: var(--nezumi) solid 3px; */
             }
         }
 
@@ -203,7 +199,7 @@ body {
 
             a:hover {
                 background: linear-gradient(135deg, var(--suzu), var(--hai));
-                border: var(--suzu) solid 2px;
+                /* border: var(--suzu) solid 2px; */
                 color: var(--unohana);
             }
         }

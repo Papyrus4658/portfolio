@@ -11,12 +11,11 @@ li {
 }
 
 header {
-    /* 要素を横並びにする */
     display: grid;
-    /* grid-auto-flow: column; */
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
 
     h1 {
+        margin: 0 auto;
         margin: 5% auto;
         text-align: center;
     }
@@ -25,34 +24,9 @@ header {
         place-content: center;
 
         ul {
-            /* 要素を横並びにする */
             display: grid;
             grid-auto-flow: column;
             place-items: center;
-
-            /* 
-            li {
-                position: relative;
-                padding-top: 2em;
-                padding-left: 1em;
-                font-size: 1em;
-
-                a {
-                    position: relative;
-                    z-index: 0;
-                }
-            }
-
-            li::before {
-                content: attr(data-en);
-                position: absolute;
-                transform: rotate(-1deg);
-                top: 0;
-                left: 0;
-                font-size: 1.5em;
-                font-style: italic;
-            }
-             */
         }
     }
 }
@@ -69,8 +43,8 @@ main {
 
     .page_top_btn {
         position: fixed;
-        bottom: 3%;
-        right: 3%;
+        bottom: 5%;
+        right: 5%;
         font-size: 3em;
         border-radius: 50%;
     }
@@ -140,17 +114,23 @@ main {
                 place-items: end;
 
                 div {
-                    margin: 5% 0;
+                    margin: 2% 0;
                 }
             }
 
-            h1,
-            h2,
             h3,
             h4,
             h5,
             h6 {
                 margin: 5% auto;
+            }
+
+            h1 {
+                margin-top: 20%;
+            }
+
+            h2 {
+                margin-top: 10%;
             }
 
             p {
@@ -194,7 +174,7 @@ main {
             /* ワード検索のスペースは最小限、残りをタグ検索 */
             grid-template-rows: auto 1fr;
 
-            gap: 10%;
+            gap: 25%;
 
             .word_search {
                 display: grid;
@@ -209,8 +189,8 @@ main {
 
             .tag_search {
                 a {
-                    margin: 1%;
-                    padding: 2%;
+                    margin: 3%;
+                    padding: 3%;
 
                     /* タグを横並びにする */
                     float: left;
