@@ -1,29 +1,59 @@
 @import url(./colors.css);
 @import url(./fonts.css);
 
+html {
+    scroll-behavior: smooth;
+}
+
 li {
     /* リストの点を消す */
     list-style: none;
 }
 
-nav {
-    place-content: center;
-
-    ul {
-        /* 要素を横並びにする */
-        display: grid;
-        grid-auto-flow: column;
-    }
-}
-
 header {
     /* 要素を横並びにする */
     display: grid;
-    grid-auto-flow: column;
+    /* grid-auto-flow: column; */
+    grid-template-columns: 1fr 1fr;
 
     h1 {
         margin: 5% auto;
         text-align: center;
+    }
+
+    nav {
+        place-content: center;
+
+        ul {
+            /* 要素を横並びにする */
+            display: grid;
+            grid-auto-flow: column;
+            place-items: center;
+
+            /* 
+            li {
+                position: relative;
+                padding-top: 2em;
+                padding-left: 1em;
+                font-size: 1em;
+
+                a {
+                    position: relative;
+                    z-index: 0;
+                }
+            }
+
+            li::before {
+                content: attr(data-en);
+                position: absolute;
+                transform: rotate(-1deg);
+                top: 0;
+                left: 0;
+                font-size: 1.5em;
+                font-style: italic;
+            }
+             */
+        }
     }
 }
 
@@ -36,7 +66,14 @@ main {
     こうしないと、長いコードがあるときにasideが押し出される。
     */
     grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
-    /* gap: 5%; */
+
+    .page_top_btn {
+        position: fixed;
+        bottom: 3%;
+        right: 3%;
+        font-size: 3em;
+        border-radius: 50%;
+    }
 
     article {
         margin: 5%;
@@ -49,7 +86,7 @@ main {
             margin-top: 5%;
             /* 記事一覧のサムネイルとタイトルを1:2で横並びにする */
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 2fr;
 
             /* 要素を上下左右中央揃えにする */
             place-items: center;
@@ -65,7 +102,7 @@ main {
             margin-top: 5%;
             /* 作品を1列3つずつ配置する */
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 5%;
 
             .work {
@@ -181,6 +218,20 @@ main {
                     border-radius: 2vw;
                 }
             }
+        }
+    }
+}
+
+footer {
+    ul {
+        /* 4つずつ横並びにする */
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-flow: column;
+        place-items: center;
+
+        li {
+            margin: 5%;
         }
     }
 }

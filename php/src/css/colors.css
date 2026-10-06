@@ -115,16 +115,27 @@ body {
         border-bottom: var(--bar-from) solid 5px;
 
         h1,
-        li {
+        a {
             color: var(--bar-text);
         }
+
+        /*
+        li::before {
+            color: var(--bar-text);
+        }
+         */
     }
 
     main {
         background: linear-gradient(135deg, var(--main-from), var(--main-to));
 
+        .page_top_btn {
+            color: var(--line);
+        }
+
         .heading {
             border-bottom: var(--line) solid 3px;
+            transition: all 0.3s ease;
 
             img {
                 box-shadow: 0.5vw 1vh 0 var(--thumb-shadow);
@@ -143,6 +154,7 @@ body {
 
         .work {
             border: var(--line) solid 3px;
+            transition: all 0.3s ease;
 
             img {
                 border-bottom: var(--line) solid 3px;
@@ -186,6 +198,7 @@ body {
         .tag_search {
             a {
                 border: var(--namari) solid 2px;
+                transition: all 0.3s ease;
             }
 
             a:hover {
@@ -200,7 +213,7 @@ body {
         background: linear-gradient(135deg, var(--bar-from), var(--bar-to));
         border-top: var(--bar-from) solid 5px;
 
-        li {
+        a {
             color: var(--bar-text);
         }
     }

@@ -49,7 +49,6 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="tag_search">
                 <?php foreach ($rows as $row): ?>
                     <a href="<?= $action ?>?tag=<?= $row["id"] ?>">
-                        <span class="material-symbols-outlined">shoppingmode</span>
                         <?= $row["name"] ?>
                     </a>
                 <?php endforeach; ?>

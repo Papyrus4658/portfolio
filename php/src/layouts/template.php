@@ -108,7 +108,12 @@ $title = $page_name . getenv("SITE_NAME");
     include getenv("PHP_LAYOUTS") . "header.php";
     ?>
     <main>
-        <article>
+        <a href="#page_top" class="page_top_btn">
+            <span class="material-symbols-outlined">
+                expand_circle_up
+            </span>
+        </a>
+        <article id="page_top">
             <h1 class="page_title">
                 <?php
                 if ($page === "article") {
@@ -116,9 +121,9 @@ $title = $page_name . getenv("SITE_NAME");
                         echo $row["title"];
                     }
                 } elseif ($page === "works") {
-                    echo getenv("WORKS");
+                    echo "作品";
                 } else {
-                    echo getenv("ARTICLES");
+                    echo "記事";
                 }
                 ?>
             </h1>
@@ -171,10 +176,7 @@ $title = $page_name . getenv("SITE_NAME");
                                 $img_src = getenv("HTML_WORKS") . $id . "/screenshots/thumbnail.png";
                                 ?>
                                 <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
-                                <h2>
-                                    <?php echo $name; ?>
-                                    <span class="material-symbols-outlined">open_in_new</span>
-                                </h2>
+                                <h2><?php echo $name; ?></h2>
                             </a>
                         <?php endforeach; ?>
                     </div>

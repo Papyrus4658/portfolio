@@ -11,10 +11,10 @@ body {
 
     header {
         font-family: "Zen Antique";
-        font-style: italic;
 
         h1 {
             font-size: 3em;
+            font-style: italic;
         }
 
         nav {
