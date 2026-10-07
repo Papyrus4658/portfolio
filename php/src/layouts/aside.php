@@ -35,13 +35,17 @@ $stmt = $pdo->query($sql);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <aside>
-    <button class="hamburger" type="button">
+    <button class="hamburger" type="button" type="button" aria-label="open" aria-expanded="false"
+        aria-controls="search">
         <span class="line"></span>
         <span class="line"></span>
         <span class="line"></span>
     </button>
 
-    <div class="search">
+    <!-- メニュー外をタップして閉じるための暗幕 -->
+    <div class="overlay"></div>
+
+    <div class="search" id="search">
         <form action="<?= $action ?>" method="get" class="word_search">
             <input type="text" name="word" id="word">
             <button type="submit">
@@ -66,9 +70,19 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <script>
     const hamburger = document.querySelector(".hamburger");
     const search = document.querySelector(".search");
+    const overlay = document.querySelector(".overlay");
 
-    hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("is-active");
-        search.classList.toggle("is-open");
+    function setOpen(isOpen) {
+        hamburger.classList.toggle("is-active", isOpen);
+        search.classList.toggle("is-open", isOpen);
+        overlay.classList.toggle("is-open", isOpen);
+        hamburger.setAttribute("aria-expanded", isOpen);
+        hamburger.setAttribute("aria-label", isOpen ? "close" : "open");
+    }
+
+    hamburger.addEventListener("click", () => setOpen(!search.classList.contains("is-open")));
+    overlay.addEventListener("click", () => setOpen(false));
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setOpen(false);
     });
 </script>
