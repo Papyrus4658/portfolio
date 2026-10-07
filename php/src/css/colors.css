@@ -130,12 +130,12 @@ body {
         background: linear-gradient(135deg, var(--main-from), var(--main-to));
 
         .page_top_btn {
-            color: var(--line);
+            color: var(--namari);
         }
 
         .heading {
             /* border-bottom: var(--line) solid 3px; */
-            transition:all 0.3s ease;
+            transition: all 0.3s ease;
 
             img {
                 box-shadow: 0.5vw 1vh 0 var(--thumb-shadow);
@@ -174,10 +174,6 @@ body {
         .md {
             background-color: var(--md-bg);
             color: var(--md-text);
-
-            code {
-                /* border: var(--nezumi) solid 3px; */
-            }
         }
 
         .word_search {
@@ -211,6 +207,28 @@ body {
 
         a {
             color: var(--bar-text);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        main {
+            .heading {
+                img {
+                    box-shadow: 1vw 1vh 0 var(--thumb-shadow);
+                }
+            }
+
+            .heading:hover {
+                background: linear-gradient(135deg, var(--heading-hover-from), var(--heading-hover-to));
+                box-shadow: 2vw 2vh 0 var(--heading-hover-shadow);
+                border-bottom: var(--heading-hover-from) solid 3px;
+
+                img {
+                    box-shadow: none;
+                }
+            }
         }
     }
 }

@@ -43,8 +43,8 @@ main {
 
     .page_top_btn {
         position: fixed;
-        bottom: 5%;
-        right: 5%;
+        bottom: 3%;
+        right: 3%;
         font-size: 3em;
         border-radius: 50%;
     }
@@ -103,7 +103,7 @@ main {
 
             img {
                 display: block;
-                width: 75%;
+                max-width: 75%;
             }
 
             .thumbnail {
@@ -160,6 +160,10 @@ main {
 
     aside {
         margin: 20% 5%;
+
+        .hamburger {
+            display: none;
+        }
 
         .search {
             /* 検索欄はスクロールしてもこの位置で固定する */
@@ -240,6 +244,45 @@ footer {
     }
 
     main {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+
+        .page_top_btn {
+            bottom: 1%;
+            right: 1%;
+        }
+
+        article {
+            .works {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        aside {
+            .search {
+                .word_search {
+                    input {
+                        padding: 0 2%;
+                        border-radius: 3vw;
+                    }
+                }
+
+                .tag_search {
+                    a {
+                        margin: 2%;
+                        padding: 2%;
+
+                        border-radius: 3vw;
+                    }
+                }
+            }
+        }
+    }
+
+    footer {
+        ul {
+            /* 4つずつ横並びにする */
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 }
