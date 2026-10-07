@@ -232,3 +232,13 @@ body {
         }
     }
 }
+
+@media (max-width: 768px) {
+    main {
+        aside {
+            .line {
+                background-color: var(--line);
+            }
+        }
+    }
+}

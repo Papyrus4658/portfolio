@@ -35,6 +35,12 @@ $stmt = $pdo->query($sql);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <aside>
+    <button class="hamburger" type="button">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+    </button>
+
     <div class="search">
         <form action="<?= $action ?>" method="get" class="word_search">
             <input type="text" name="word" id="word">
@@ -56,3 +62,13 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
     </div>
 </aside>
+
+<script>
+    const hamburger = document.querySelector(".hamburger");
+    const search = document.querySelector(".search");
+
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("is-active");
+        search.classList.toggle("is-open");
+    });
+</script>
