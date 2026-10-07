@@ -92,8 +92,10 @@ $title = $page_name . getenv("SITE_NAME");
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
     <!-- シンタックスハイライト -->
-    <link rel="stylesheet"
+    <link rel="stylesheet" media="(prefers-color-scheme: light)"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/base16/solarized-light.min.css">
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/styles/base16/solarized-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 
@@ -101,11 +103,16 @@ $title = $page_name . getenv("SITE_NAME");
     <link rel="stylesheet" href="<?= getenv("HTML_CSS") ?>style.css">
 </head>
 
-<body>
+<body id="page_top">
     <?php
     include getenv("PHP_LAYOUTS") . "header.php";
     ?>
     <main>
+        <a href="#page_top" class="page_top_btn">
+            <span class="material-symbols-outlined">
+                keyboard_arrow_up
+            </span>
+        </a>
         <article>
             <h1 class="page_title">
                 <?php
@@ -114,9 +121,9 @@ $title = $page_name . getenv("SITE_NAME");
                         echo $row["title"];
                     }
                 } elseif ($page === "works") {
-                    echo getenv("WORKS");
+                    echo "作品";
                 } else {
-                    echo getenv("ARTICLES");
+                    echo "記事";
                 }
                 ?>
             </h1>
@@ -127,13 +134,13 @@ $title = $page_name . getenv("SITE_NAME");
                     <?php else: ?>
                         <img src="<?= getenv("HTML_ARTICLES") ?><?= $row["id"] ?>/screenshots/thumbnail.png" alt="サムネイル"
                             class="thumbnail">
-                        <div>
-                            <small>
+                        <div class="datetimes">
+                            <div>
                                 登録日時：<?= $row["published_at"] ?>
-                            </small>
-                            <small>
+                            </div>
+                            <div>
                                 更新日時：<?= $row["updated_at"] ?>
-                            </small>
+                            </div>
                         </div>
 
                         <?php
@@ -169,10 +176,7 @@ $title = $page_name . getenv("SITE_NAME");
                                 $img_src = getenv("HTML_WORKS") . $id . "/screenshots/thumbnail.png";
                                 ?>
                                 <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
-                                <h2>
-                                    <?php echo $name; ?>
-                                    <span class="material-symbols-outlined">open_in_new</span>
-                                </h2>
+                                <h2><?php echo $name; ?></h2>
                             </a>
                         <?php endforeach; ?>
                     </div>
