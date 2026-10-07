@@ -215,3 +215,31 @@ footer {
         }
     }
 }
+
+@media (max-width: 768px) {
+    header {
+        display: grid;
+        grid-template-columns: none;
+        grid-template-rows: 2fr 1fr;
+
+        h1 {
+            margin: 0 auto;
+            margin: 5% auto;
+            text-align: center;
+        }
+
+        nav {
+            place-content: center;
+
+            ul {
+                display: grid;
+                grid-auto-flow: column;
+                place-items: center;
+            }
+        }
+    }
+
+    main {
+        grid-template-columns: 1fr;
+    }
+}
