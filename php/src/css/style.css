@@ -46,7 +46,6 @@ main {
         bottom: 3%;
         right: 3%;
         font-size: 3em;
-        border-radius: 50%;
     }
 
     article {
@@ -74,32 +73,31 @@ main {
 
         .works {
             margin-top: 5%;
+
             /* 作品を1列3つずつ配置する */
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 5%;
 
             .work {
-                /* 作品のサムネイルと名前を3:1で縦並びにする */
-                display: grid;
-                grid-template-rows: 4fr 1fr;
-
-                /* 要素を上下左右中央揃えにする */
-                place-items: center;
-
-                border-radius: 2vw;
+                border-radius: 10%;
 
                 img {
                     object-fit: cover;
                     max-width: 100%;
                     aspect-ratio: 4/3;
                 }
+
+                h2 {
+                    padding: 5%;
+                    text-align: center;
+                }
             }
         }
 
         .md {
             padding: 5%;
-            border-radius: 2vw;
+            border-radius: 5vh;
 
             img {
                 display: block;
@@ -152,7 +150,7 @@ main {
                 margin: 5% auto;
 
                 code {
-                    border-radius: 2vw;
+                    border-radius: 3vh;
                 }
             }
         }
@@ -188,19 +186,19 @@ main {
                 input {
                     padding: 0 5%;
                     width: 100%;
-                    border-radius: 2vw;
+                    border-radius: 5vw;
                 }
             }
 
             .tag_search {
                 a {
-                    margin: 3%;
-                    padding: 3%;
+                    margin: 1%;
+                    padding: 5%;
 
                     /* タグを横並びにする */
                     float: left;
 
-                    border-radius: 2vw;
+                    border-radius: 5vh;
                 }
             }
         }
@@ -337,19 +335,6 @@ footer {
                 .word_search {
                     margin-bottom: 2rem;
                     place-items: center;
-
-                    input {
-                        padding: 0 5%;
-                        border-radius: 5vw;
-                    }
-                }
-
-                .tag_search {
-                    a {
-                        margin: 2%;
-                        padding: 2%;
-                        border-radius: 3vw;
-                    }
                 }
             }
 
