@@ -138,13 +138,17 @@ body {
             transition: all 0.3s ease;
 
             img {
-                box-shadow: 0.5vw 1vh 0 var(--thumb-shadow);
+                box-shadow: 10px 10px 0 var(--thumb-shadow);
+            }
+
+            h2 {
+                padding: 5%;
             }
         }
 
         .heading:hover {
             background: linear-gradient(135deg, var(--heading-hover-from), var(--heading-hover-to));
-            box-shadow: 1vw 2vh 0 var(--heading-hover-shadow);
+            box-shadow: 15px 15px 0 var(--heading-hover-shadow);
             border-bottom: var(--heading-hover-from) solid 3px;
 
             img {
@@ -195,7 +199,6 @@ body {
 
             a:hover {
                 background: linear-gradient(135deg, var(--suzu), var(--hai));
-                /* border: var(--suzu) solid 2px; */
                 color: var(--unohana);
             }
         }
@@ -216,13 +219,13 @@ body {
         main {
             .heading {
                 img {
-                    box-shadow: 1vw 1vh 0 var(--thumb-shadow);
+                    box-shadow: 5px 5px 0 var(--thumb-shadow);
                 }
             }
 
             .heading:hover {
                 background: linear-gradient(135deg, var(--heading-hover-from), var(--heading-hover-to));
-                box-shadow: 2vw 2vh 0 var(--heading-hover-shadow);
+                box-shadow: 10px 10px 0 var(--heading-hover-shadow);
                 border-bottom: var(--heading-hover-from) solid 3px;
 
                 img {
@@ -238,6 +241,14 @@ body {
         aside {
             .line {
                 background-color: var(--line);
+            }
+
+            .overlay {
+                background-color: var(--kuro);
+            }
+
+            .search {
+                background-color: var(--main-from);
             }
         }
     }
