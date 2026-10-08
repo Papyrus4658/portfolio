@@ -1,5 +1,5 @@
 <?php
-include getenv("PHP_ROOT_DIR") . "/dbconnect.php";
+include "/var/www/html/dbconnect.php";
 
 $page_name = "";
 
@@ -13,8 +13,6 @@ if ($page === "article") {
     } catch (PDOException $e) {
         $row = [];
     }
-
-    // $page_name = ($row["title"]) ? $row["title"] . " | " : "お探しの記事は見つかりませんでした | ";
 } elseif ($page === "works") {
     if (isset($_GET["word"])) {
         $word = $_GET["word"];
@@ -105,7 +103,7 @@ $title = $page_name . getenv("SITE_NAME");
 
 <body id="page_top">
     <?php
-    include getenv("PHP_LAYOUTS") . "header.php";
+    include __DIR__ . "/header.php";
     ?>
     <main>
         <a href="#page_top" class="page_top_btn">
@@ -149,10 +147,10 @@ $title = $page_name . getenv("SITE_NAME");
                             "{{ID}}" => $row["id"],
                         ];
 
-                        $md = file_get_contents(getenv('PHP_ARTICLES') . "{$id}/text.md");
+                        $md = file_get_contents("articles/{$id}/text.md");
                         $md = strtr($md, $vars);
 
-                        require getenv("PHP_VENDOR") . "autoload.php";
+                        require "vendor/autoload.php";
                         $Parsedown = new Parsedown();
                         $Parsedown->setSafeMode(true);
                         $text = $Parsedown->text($md);
@@ -201,7 +199,7 @@ $title = $page_name . getenv("SITE_NAME");
                 <?php endif; ?>
             <?php endif; ?>
         </article>
-        <?php include getenv("PHP_LAYOUTS") . "aside.php"; ?>
+        <?php include __DIR__ . "/aside.php"; ?>
     </main>
-    <?php include getenv("PHP_LAYOUTS") . "footer.php"; ?>
-    <?php include getenv("PHP_LAYOUTS") . "tail.php"; ?>
+    <?php include __DIR__ . "/footer.php"; ?>
+    <?php include __DIR__ . "/tail.php"; ?>
