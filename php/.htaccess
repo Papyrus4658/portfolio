@@ -1,8 +1,8 @@
-SetEnv DB_HOST "localhost"
-SetEnv DB_ROOT_PASSWORD "rootpassword"
-SetEnv DB_DATABASE "portfolio"
-SetEnv DB_USER "portfoliouser"
-SetEnv DB_PASSWORD "md=Wu2U4+ti(#N_RuEv@v7jTs.6di|@e/mvR"
+SetEnv MARIADB_HOST "localhost"
+SetEnv MARIADB_ROOT_PASSWORD "rootpassword"
+SetEnv MARIADB_DATABASE "portfolio"
+SetEnv MARIADB_USER "portfoliouser"
+SetEnv MARIADB_PASSWORD "md=Wu2U4+ti(#N_RuEv@v7jTs.6di|@e/mvR"
 SetEnv TZ "Asia/Tokyo"
 
 SetEnv HTML_ROOT_DIR "/"
