@@ -1,0 +1,15 @@
+SetEnv DB_HOST "localhost"
+SetEnv DB_ROOT_PASSWORD "rootpassword"
+SetEnv DB_DATABASE "portfolio"
+SetEnv DB_USER "portfoliouser"
+SetEnv DB_PASSWORD "md=Wu2U4+ti(#N_RuEv@v7jTs.6di|@e/mvR"
+SetEnv TZ "Asia/Tokyo"
+
+SetEnv HTML_ROOT_DIR "/"
+SetEnv HTML_LAYOUTS "/layouts/"
+SetEnv HTML_ARTICLES "/articles/"
+SetEnv HTML_WORKS "/works/"
+SetEnv HTML_VENDOR "/vendor/"
+SetEnv HTML_CSS "/css/"
+
+SetEnv SITE_NAME "Progress of Wisdom"
