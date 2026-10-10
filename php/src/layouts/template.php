@@ -5,8 +5,8 @@ $page_name = "";
 
 if ($page === "article") {
     if (isset($_GET["id"])) {
-        $id = htmlspecialchars($_GET["id"], ENT_QUOTES, "UTF-8");
-        $id = (int) $id;
+	$id = htmlspecialchars($_GET["id"], ENT_QUOTES, "UTF-8");
+	$id = (int) $id;
         $sql = "SELECT * FROM articles WHERE id = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);
@@ -130,9 +130,9 @@ $title = $page_name . getenv("SITE_NAME");
                         <p>お探しの記事は存在しないか非公開となっています。</p>
                     <?php else: ?>
                         <?php
-                        $id = $row["id"];
-                        $published_at = $row["published_at"];
-                        $updated_at = $row["updated_at"];
+                        $id= $row["id"];
+                        $published_at= $row["published_at"];
+                        $updated_at= $row["updated_at"];
                         ?>
 
                         <img src="<?= getenv("HTML_ARTICLES") ?><?= $id ?>/screenshots/thumbnail.png" alt="サムネイル"
