@@ -99,6 +99,28 @@ main {
             padding: 5%;
             border-radius: 5vh;
 
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p,
+            li,
+            code {
+                margin-bottom: 5%;
+            }
+
+            .datetimes {
+                p {
+                    margin: 5% 0;
+                }
+            }
+
+            h1 {
+                margin-top: 10%;
+            }
+
             img {
                 display: block;
                 max-width: 75%;
@@ -109,36 +131,12 @@ main {
             }
 
             .datetimes {
-                place-items: end;
-
-                div {
-                    margin: 2% 0;
-                }
+                text-align: right;
             }
 
-            h3,
-            h4,
-            h5,
-            h6 {
-                margin: 5% auto;
-            }
 
-            h1 {
-                margin-top: 20%;
-            }
-
-            h2 {
-                margin-top: 10%;
-            }
-
-            p {
-                margin: 5% auto;
-            }
 
             li {
-                margin: 5% auto;
-                padding-left: 1%;
-
                 /* 記事内のみ点を付ける */
                 list-style: disc;
 
