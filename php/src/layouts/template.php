@@ -4,25 +4,24 @@ include "/var/www/html/dbconnect.php";
 $page_name = "";
 
 if ($page === "article") {
-    $id = $_GET["id"] ?? 1;
-    $sql = "SELECT * FROM articles WHERE id = ?";
-    try {
+    if (isset($_GET["id"])) {
+        $id = htmlspecialchars($_GET["id"], ENT_QUOTES, "UTF-8");
+        $id = (int) $id;
+        $sql = "SELECT * FROM articles WHERE id = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        $row = [];
     }
 } elseif ($page === "works") {
     if (isset($_GET["word"])) {
-        $word = $_GET["word"];
+        $word = htmlspecialchars($_GET["word"], ENT_QUOTES, "UTF-8");
         $sql = "SELECT * FROM works 
                     WHERE is_published AND name LIKE ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(["%$word%"]);
     } elseif (isset($_GET["tag"])) {
-        $tag = (int) $_GET["tag"];
+        $tag = (int) htmlspecialchars($_GET["tag"], ENT_QUOTES, "UTF-8");
         $sql = "SELECT * FROM works as w
                     INNER JOIN work_tags as wt
                     ON id = work_id 
@@ -40,14 +39,14 @@ if ($page === "article") {
     $page_name = "作品一覧 | ";
 } else {
     if (isset($_GET["word"])) {
-        $word = $_GET["word"];
+        $word = htmlspecialchars($_GET["word"], ENT_QUOTES, "UTF-8");
         $sql = "SELECT * FROM articles 
                     WHERE is_published AND title LIKE ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(["%$word%"]);
     } elseif (isset($_GET["tag"])) {
-        $tag = (int) $_GET["tag"];
+        $tag = (int) htmlspecialchars($_GET["tag"], ENT_QUOTES, "UTF-8");
         $sql = "SELECT * FROM articles as a
                     INNER JOIN article_tags as at
                     ON id = article_id 
@@ -127,24 +126,30 @@ $title = $page_name . getenv("SITE_NAME");
             </h1>
             <?php if ($page === "article"): ?>
                 <div class="md">
-                    <?php if (count($row) == 0): ?>
+                    <?php if ($row == false): ?>
                         <p>お探しの記事は存在しないか非公開となっています。</p>
                     <?php else: ?>
-                        <img src="<?= getenv("HTML_ARTICLES") ?><?= $row["id"] ?>/screenshots/thumbnail.png" alt="サムネイル"
+                        <?php
+                        $id = $row["id"];
+                        $published_at = $row["published_at"];
+                        $updated_at = $row["updated_at"];
+                        ?>
+
+                        <img src="<?= getenv("HTML_ARTICLES") ?><?= $id ?>/screenshots/thumbnail.png" alt="サムネイル"
                             class="thumbnail">
                         <div class="datetimes">
                             <div>
-                                登録日時：<?= $row["published_at"] ?>
+                                登録日時：<?= $published_at ?>
                             </div>
                             <div>
-                                更新日時：<?= $row["updated_at"] ?>
+                                更新日時：<?= $updated_at ?>
                             </div>
                         </div>
 
                         <?php
                         $vars = [
                             "{{ARTICLES}}" => getenv("HTML_ARTICLES"),
-                            "{{ID}}" => $row["id"],
+                            "{{ID}}" => $id,
                         ];
 
                         $md = file_get_contents("articles/{$id}/text.md");

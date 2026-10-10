@@ -5,4 +5,7 @@
             <li><a href="<?= getenv("HTML_ROOT_DIR") ?>works.php">作品</a></li>
         </ul>
     </nav>
+    <div class="copyright">
+        <span>© 2026 <?= getenv("SITE_NAME") ?></span>
+    </div>
 </footer>

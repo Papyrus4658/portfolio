@@ -217,6 +217,10 @@ footer {
             margin: 5%;
         }
     }
+
+    .copyright {
+        text-align: right;
+    }
 }
 
 @media (max-width: 768px) {
