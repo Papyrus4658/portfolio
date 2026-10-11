@@ -1,5 +1,8 @@
 <?php
-include "/var/www/html/dbconnect.php";
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
+
+include "dbconnect.php";
 
 $title_prefix = "";
 
