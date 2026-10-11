@@ -11,12 +11,8 @@
 
             <img src="<?= getenv("HTML_ARTICLES") ?><?= $id ?>/screenshots/thumbnail.png" alt="サムネイル" class="thumbnail">
             <div class="datetimes">
-                <p>
-                    登録日時：<?= $published_at ?>
-                </p>
-                <p>
-                    更新日時：<?= $updated_at ?>
-                </p>
+                <p>登録日時：<?= $published_at ?></p>
+                <p>更新日時：<?= $updated_at ?></p>
             </div>
 
             <?php
@@ -31,6 +27,7 @@
             $Parsedown = new Parsedown();
             $Parsedown->setSafeMode(true);
             $text = $Parsedown->text($md);
+
             echo $text;
             ?>
         <?php endif; ?>
