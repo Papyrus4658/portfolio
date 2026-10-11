@@ -1,19 +1,12 @@
 body {
     font-family: "BIZ UDPMincho";
 
-    h1 {
-        font-family: "Zen Antique";
-    }
-
     .material-symbols-outlined {
         font-size: 1em;
     }
 
     header {
-        font-family: "Zen Antique";
-
         h1 {
-            font-size: 2em;
             font-style: italic;
         }
 
@@ -22,19 +15,17 @@ body {
         }
     }
 
-    .heading:hover {
-        font-family: "Zen Antique";
+    .heading,
+    .work {
+        h2 {
+            font-weight: normal;
+        }
     }
 
-    .md {
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: "BIZ UDPGothic";
+    .heading:hover,
+    .work:hover {
+        h2 {
+            font-weight: bold;
         }
     }
 
@@ -43,6 +34,6 @@ body {
     }
 
     code {
-        font-family: "Source Code Pro";
+        font-family: "Cascadia Code", "Consolas", "Lucida Console", monospace;
     }
 }

@@ -207,6 +207,7 @@ body {
     footer {
         background: linear-gradient(135deg, var(--bar-from), var(--bar-to));
         border-top: var(--bar-from) solid 5px;
+        color: var(--bar-text);
 
         a {
             color: var(--bar-text);
@@ -232,23 +233,19 @@ body {
                     box-shadow: none;
                 }
             }
-        }
-    }
-}
 
-@media (max-width: 768px) {
-    main {
-        aside {
-            .line {
-                background-color: var(--line);
-            }
+            aside {
+                .line {
+                    background-color: var(--line);
+                }
 
-            .overlay {
-                background-color: var(--kuro);
-            }
+                .overlay {
+                    background-color: var(--kuro);
+                }
 
-            .search {
-                background-color: var(--main-from);
+                .search {
+                    background-color: var(--main-from);
+                }
             }
         }
     }

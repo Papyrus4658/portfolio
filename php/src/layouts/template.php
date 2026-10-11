@@ -1,30 +1,29 @@
 <?php
-include getenv("PHP_ROOT_DIR") . "/dbconnect.php";
+include "/var/www/html/dbconnect.php";
 
-$page_name = "";
+$title_prefix = "";
 
 if ($page === "article") {
-    $id = $_GET["id"] ?? 1;
-    $sql = "SELECT * FROM articles WHERE id = ?";
-    try {
+    if (isset($_GET["id"])) {
+        $id = htmlspecialchars($_GET["id"], ENT_QUOTES, "UTF-8");
+        $id = (int) $id;
+        $sql = "SELECT * FROM articles WHERE id = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        $row = [];
-    }
 
-    // $page_name = ($row["title"]) ? $row["title"] . " | " : "お探しの記事は見つかりませんでした | ";
+        $title_prefix = (isset($row["title"])) ? $row["title"] : "記事が存在しません";
+    }
 } elseif ($page === "works") {
     if (isset($_GET["word"])) {
-        $word = $_GET["word"];
+        $word = htmlspecialchars($_GET["word"], ENT_QUOTES, "UTF-8");
         $sql = "SELECT * FROM works 
                     WHERE is_published AND name LIKE ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(["%$word%"]);
     } elseif (isset($_GET["tag"])) {
-        $tag = (int) $_GET["tag"];
+        $tag = (int) htmlspecialchars($_GET["tag"], ENT_QUOTES, "UTF-8");
         $sql = "SELECT * FROM works as w
                     INNER JOIN work_tags as wt
                     ON id = work_id 
@@ -39,17 +38,19 @@ if ($page === "article") {
 
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $page_name = "作品一覧 | ";
-} else {
+    $title_prefix = "作品";
+} elseif ($page === "about") {
+    $title_prefix = "このサイトについて";
+} elseif ($page === "index") {
     if (isset($_GET["word"])) {
-        $word = $_GET["word"];
+        $word = htmlspecialchars($_GET["word"], ENT_QUOTES, "UTF-8");
         $sql = "SELECT * FROM articles 
                     WHERE is_published AND title LIKE ? 
                     ORDER BY id DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(["%$word%"]);
     } elseif (isset($_GET["tag"])) {
-        $tag = (int) $_GET["tag"];
+        $tag = (int) htmlspecialchars($_GET["tag"], ENT_QUOTES, "UTF-8");
         $sql = "SELECT * FROM articles as a
                     INNER JOIN article_tags as at
                     ON id = article_id 
@@ -64,10 +65,10 @@ if ($page === "article") {
 
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $page_name = "トップページ | ";
+    $title_prefix = "記事";
 }
 
-$title = $page_name . getenv("SITE_NAME");
+$title = $title_prefix . " | " . getenv("SITE_NAME");
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -79,14 +80,6 @@ $title = $page_name . getenv("SITE_NAME");
 
     <!-- リセットcss -->
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-    <!-- <link rel="stylesheet" href="node_modules/modern-normalize/modern-normalize.css"> -->
-
-    <!-- googleフォント -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic&family=BIZ+UDPMincho&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Zen+Antique&display=swap"
-        rel="stylesheet">
 
     <!-- google icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
@@ -105,7 +98,7 @@ $title = $page_name . getenv("SITE_NAME");
 
 <body id="page_top">
     <?php
-    include getenv("PHP_LAYOUTS") . "header.php";
+    include __DIR__ . "/header.php";
     ?>
     <main>
         <a href="#page_top" class="page_top_btn">
@@ -115,93 +108,11 @@ $title = $page_name . getenv("SITE_NAME");
         </a>
         <article>
             <h1 class="page_title">
-                <?php
-                if ($page === "article") {
-                    if (isset($row["title"])) {
-                        echo $row["title"];
-                    }
-                } elseif ($page === "works") {
-                    echo "作品";
-                } else {
-                    echo "記事";
-                }
-                ?>
+                <?= $title_prefix; ?>
             </h1>
-            <?php if ($page === "article"): ?>
-                <div class="md">
-                    <?php if (count($row) == 0): ?>
-                        <p>お探しの記事は存在しないか非公開となっています。</p>
-                    <?php else: ?>
-                        <img src="<?= getenv("HTML_ARTICLES") ?><?= $row["id"] ?>/screenshots/thumbnail.png" alt="サムネイル"
-                            class="thumbnail">
-                        <div class="datetimes">
-                            <div>
-                                登録日時：<?= $row["published_at"] ?>
-                            </div>
-                            <div>
-                                更新日時：<?= $row["updated_at"] ?>
-                            </div>
-                        </div>
-
-                        <?php
-                        $vars = [
-                            "{{ARTICLES}}" => getenv("HTML_ARTICLES"),
-                            "{{ID}}" => $row["id"],
-                        ];
-
-                        $md = file_get_contents(getenv('PHP_ARTICLES') . "{$id}/text.md");
-                        $md = strtr($md, $vars);
-
-                        require getenv("PHP_VENDOR") . "autoload.php";
-                        $Parsedown = new Parsedown();
-                        $Parsedown->setSafeMode(true);
-                        $text = $Parsedown->text($md);
-                        echo $text;
-                        ?>
-                    <?php endif; ?>
-                </div>
-            <?php elseif ($page === "works"): ?>
-                <?php if (count($rows) == 0): ?>
-                    <p>作品が見つかりませんでした。</p>
-                <?php else: ?>
-                    <div class="works">
-                        <?php foreach ($rows as $row): ?>
-                            <?php
-                            $id = $row["id"];
-                            $name = $row["name"];
-                            $url = $row["url"];
-                            ?>
-                            <a href="<?= $url ?>" target="_blank" class="work">
-                                <?php
-                                $img_src = getenv("HTML_WORKS") . $id . "/screenshots/thumbnail.png";
-                                ?>
-                                <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
-                                <h2><?php echo $name; ?></h2>
-                            </a>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            <?php else: ?>
-                <?php if (count($rows) == 0): ?>
-                    <p>記事は見つかりませんでした。</p>
-                <?php else: ?>
-                    <?php foreach ($rows as $row): ?>
-                        <?php
-                        $id = $row["id"];
-                        $title = $row["title"];
-                        ?>
-                        <a href="article.php?id=<?= $id ?>" class="heading">
-                            <?php
-                            $img_src = getenv("HTML_ARTICLES") . $id . "/screenshots/thumbnail.png";
-                            ?>
-                            <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
-                            <h2><?php echo $title; ?></h2>
-                        </a>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            <?php endif; ?>
+            <?php include __DIR__ . "/content.php"; ?>
         </article>
-        <?php include getenv("PHP_LAYOUTS") . "aside.php"; ?>
+        <?php include __DIR__ . "/aside.php"; ?>
     </main>
-    <?php include getenv("PHP_LAYOUTS") . "footer.php"; ?>
-    <?php include getenv("PHP_LAYOUTS") . "tail.php"; ?>
+    <?php include __DIR__ . "/footer.php"; ?>
+    <?php include __DIR__ . "/tail.php"; ?>
