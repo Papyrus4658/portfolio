@@ -42,7 +42,6 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <span class="line"></span>
     </button>
 
-    <!-- メニュー外をタップして閉じるための暗幕 -->
     <div class="overlay"></div>
 
     <div class="search" id="search">

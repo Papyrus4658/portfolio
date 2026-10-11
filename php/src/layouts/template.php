@@ -80,7 +80,6 @@ $title = $title_prefix . " | " . getenv("SITE_NAME");
 
     <!-- リセットcss -->
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-    <!-- <link rel="stylesheet" href="node_modules/modern-normalize/modern-normalize.css"> -->
 
     <!-- google icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
