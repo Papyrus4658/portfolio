@@ -9,15 +9,15 @@
             $updated_at = $row["updated_at"];
             ?>
 
-            <img src="<?= getenv("HTML_ARTICLES") ?><?= $id ?>/screenshots/thumbnail.png" alt="サムネイル" class="thumbnail">
+            <img src="<?= getenv("HTML_ARTICLES") ?><?= $id ?>/imgs/top.png" alt="サムネイル" class="thumbnail">
             <div class="datetimes">
-                <p>登録日時：<?= $published_at ?></p>
-                <p>更新日時：<?= $updated_at ?></p>
+                <p class="datetime">登録日時：<?= $published_at ?></p>
+                <p class="datetime">更新日時：<?= $updated_at ?></p>
             </div>
 
             <?php
             $vars = [
-                "{{IMGS}}" => getenv("HTML_ARTICLES") . $id . "\/screenshots\/"
+                "{{IMGS}}" => getenv("HTML_ARTICLES") . $id . "\/imgs\/"
             ];
 
             $md = file_get_contents("articles/{$id}/text.md");
@@ -45,7 +45,7 @@
                 ?>
                 <a href="<?= $url ?>" target="_blank" class="work">
                     <?php
-                    $img_src = getenv("HTML_WORKS") . $id . "/screenshots/thumbnail.png";
+                    $img_src = getenv("HTML_WORKS") . $id . "/imgs/top.png";
                     ?>
                     <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
                     <h2><?= $name; ?></h2>
@@ -75,13 +75,13 @@
             $id = $row["id"];
             $title = $row["title"];
             ?>
-            <a href="article.php?id=<?= $id ?>" class="heading">
-                <?php
-                $img_src = getenv("HTML_ARTICLES") . $id . "/screenshots/thumbnail.png";
-                ?>
-                <img src="<?= $img_src ?>" alt="サムネイル<?= $id ?>">
-                <h2><?= $title; ?></h2>
-            </a>
+            <div class="heading">
+                <a href="article.php?id=<?= $id ?>">
+                    <h2>
+                        <?= $title; ?>
+                    </h2>
+                </a>
+            </div>
         <?php endforeach; ?>
     <?php endif; ?>
 <?php endif; ?>
