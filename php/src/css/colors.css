@@ -134,26 +134,13 @@ body {
         }
 
         .heading {
-            /* border-bottom: var(--line) solid 3px; */
             transition: all 0.3s ease;
-
-            img {
-                box-shadow: 10px 10px 0 var(--thumb-shadow);
-            }
-
-            h2 {
-                padding: 5%;
-            }
         }
 
         .heading:hover {
             background: linear-gradient(135deg, var(--heading-hover-from), var(--heading-hover-to));
-            box-shadow: 15px 15px 0 var(--heading-hover-shadow);
+            box-shadow: 1vw 1vw 0 var(--heading-hover-shadow);
             border-bottom: var(--heading-hover-from) solid 3px;
-
-            img {
-                box-shadow: none;
-            }
         }
 
         .work {
@@ -218,20 +205,10 @@ body {
 @media (max-width: 768px) {
     body {
         main {
-            .heading {
-                img {
-                    box-shadow: 5px 5px 0 var(--thumb-shadow);
-                }
-            }
-
             .heading:hover {
                 background: linear-gradient(135deg, var(--heading-hover-from), var(--heading-hover-to));
                 box-shadow: 10px 10px 0 var(--heading-hover-shadow);
                 border-bottom: var(--heading-hover-from) solid 3px;
-
-                img {
-                    box-shadow: none;
-                }
             }
 
             aside {

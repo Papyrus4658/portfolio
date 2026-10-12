@@ -57,17 +57,10 @@ main {
 
         .heading {
             margin-top: 5%;
-            /* 記事一覧のサムネイルとタイトルを1:2で横並びにする */
-            display: grid;
-            grid-template-columns: 1fr 2fr;
+            text-align: center;
 
-            /* 要素を上下左右中央揃えにする */
-            place-items: center;
-
-            img {
-                margin: 5% auto;
-                width: 75%;
-                aspect-ratio: 16/9;
+            h2 {
+                padding: 5%;
             }
         }
 
@@ -106,15 +99,13 @@ main {
             h5,
             h6,
             p,
-            li,
-            code {
+            li {
                 margin-bottom: 5%;
             }
 
             .datetimes {
-                p {
-                    margin: 5% 0;
-                }
+                text-align: right;
+                margin: 5%;
             }
 
             h1 {
@@ -129,12 +120,6 @@ main {
             .thumbnail {
                 margin: 0 auto;
             }
-
-            .datetimes {
-                text-align: right;
-            }
-
-
 
             li {
                 /* 記事内のみ点を付ける */
@@ -224,11 +209,6 @@ footer {
 @media (max-width: 768px) {
     body:has(.search.is-open) {
         overflow: hidden;
-    }
-
-    header {
-        grid-template-columns: none;
-        grid-template-rows: 2fr 1fr;
     }
 
     main {
