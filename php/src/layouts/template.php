@@ -1,5 +1,5 @@
 <?php
-include "/var/www/html/dbconnect.php";
+include "dbconnect.php";
 
 $title_prefix = "";
 
