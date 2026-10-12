@@ -1,5 +1,5 @@
 <?php
-$dsn = "mysql:host=" . getenv("MARIADB_HOST") . ";dbname=" . getenv("MARIADB_DATABASE") . ";charset=utf8mb4";
+$dsn = "mysql:host=" . getenv("MARIADB_HOST") . ";dbname=" . getenv("MARIADB_DATABASE");
 
 try {
     $pdo = new PDO($dsn, getenv("MARIADB_USER"), getenv("MARIADB_PASSWORD"), [
