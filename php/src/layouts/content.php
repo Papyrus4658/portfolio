@@ -5,14 +5,14 @@
         <?php else: ?>
             <?php
             $id = $row["id"];
-            $published_at = $row["published_at"];
-            $updated_at = $row["updated_at"];
+            $filename = "articles/{$id}/text.md";
+            $updatedtime = filemtime($filename);
+            $updatedtime_str = date("Y-m-d H:i:s", $updatedtime);
             ?>
 
             <img src="<?= getenv("HTML_ARTICLES") ?><?= $id ?>/imgs/top.png" alt="サムネイル" class="thumbnail">
             <div class="datetimes">
-                <p class="datetime">登録日時：<?= $published_at ?></p>
-                <p class="datetime">更新日時：<?= $updated_at ?></p>
+                <p class="datetime">更新日時：<?= $updatedtime_str ?></p>
             </div>
 
             <?php
@@ -20,7 +20,7 @@
                 "{{IMGS}}" => getenv("HTML_ARTICLES") . $id . "\/imgs\/"
             ];
 
-            $md = file_get_contents("articles/{$id}/text.md");
+            $md = file_get_contents($filename);
             $md = strtr($md, $vars);
 
             require "vendor/autoload.php";
