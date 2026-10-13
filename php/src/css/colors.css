@@ -165,6 +165,11 @@ body {
         .md {
             background-color: var(--md-bg);
             color: var(--md-text);
+
+            a {
+                text-decoration-line: underline;
+
+            }
         }
 
         .word_search {
