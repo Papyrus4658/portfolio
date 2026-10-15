@@ -1,38 +1,33 @@
 <?php
+$sql = "SELECT id, name FROM tag_types
+            WHERE is_published
+            ORDER BY id";
+$stmt = $pdo->query($sql);
+$type_rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 if ($page === "works") {
     $action = "works.php";
-    $sql = "SELECT t.id, name
-                FROM tags as t
-                WHERE
-                    t.id = (
-                        SELECT DISTINCT
-                            tag_id
+    $sql = "SELECT t.id, name FROM tags as t
+                WHERE t.id = (
+                    SELECT DISTINCT tag_id
                         FROM work_tags as wt
-                            INNER JOIN works as w ON wt.work_id = w.id
-                        WHERE
-                            w.is_published
-                            AND t.id = tag_id
-                    )
+                        INNER JOIN works as w
+                        ON wt.work_id = w.id
+                        WHERE w.is_published AND t.id = tag_id
+                ) AND type_id = ?
                 ORDER BY t.id";
 } else {
     $action = "index.php";
-    $sql = "SELECT t.id, name
-                FROM tags as t
-                WHERE
-                    t.id = (
-                        SELECT DISTINCT
-                            tag_id
+    $sql = "SELECT t.id, name FROM tags as t
+                WHERE t.id = (
+                    SELECT DISTINCT tag_id
                         FROM article_tags as at
-                            INNER JOIN articles as a ON at.article_id = a.id
-                        WHERE
-                            a.is_published
-                            AND t.id = tag_id
-                    )
+                        INNER JOIN articles as a
+                        ON at.article_id = a.id
+                        WHERE a.is_published AND t.id = tag_id
+                ) AND type_id = ?
                 ORDER BY t.id";
 }
-
-$stmt = $pdo->query($sql);
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <aside>
     <button class="hamburger" type="button" type="button" aria-label="open" aria-expanded="false"
@@ -52,17 +47,31 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </button>
         </form>
 
-        <?php if (count($rows) == 0): ?>
-            <p>現在有効なタグはありません。</p>
-        <?php else: ?>
-            <div class="tag_search">
-                <?php foreach ($rows as $row): ?>
-                    <a href="<?= $action ?>?tag=<?= $row["id"] ?>">
-                        <?= $row["name"] ?>
-                    </a>
+        <div class="tag_search">
+            <?php if (count($type_rows) == 0): ?>
+                <p>現在有効なタグはありません。</p>
+            <?php else: ?>
+                <?php foreach ($type_rows as $type_row): ?>
+                    <div class="tag_types">
+                        <h3><?= $type_row["name"] ?></h3>
+                        <?php
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute([$type_row["id"]]);
+                        $tag_rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        ?>
+                        <?php if (count($tag_rows) == 0): ?>
+                            <p>現在有効なタグはありません。</p>
+                        <?php else: ?>
+                            <?php foreach ($tag_rows as $tag_row): ?>
+                                <a href="<?= $action ?>?tag=<?= $tag_row["id"] ?>">
+                                    <?= $tag_row["name"] ?>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
                 <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </div>
 </aside>
 
