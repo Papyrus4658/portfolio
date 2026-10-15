@@ -45,11 +45,12 @@ body {
     こうしないと、長いコードがあるときにasideが押し出される。
     */
         grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+        grid-template-rows: auto;
 
         .page_top_btn {
             position: fixed;
-            bottom: 3%;
-            right: 3%;
+            bottom: 1%;
+            right: 1%;
             font-size: 3em;
         }
 
@@ -81,6 +82,7 @@ body {
                     border-radius: 10%;
 
                     img {
+                        padding: 5%;
                         object-fit: cover;
                         max-width: 100%;
                         aspect-ratio: 4/3;
@@ -165,9 +167,9 @@ body {
                 grid-template-columns: 1fr;
 
                 /* ワード検索のスペースは最小限、残りをタグ検索 */
-                grid-template-rows: auto 1fr;
+                grid-template-rows: auto 100vh;
 
-                gap: 25%;
+                gap: 5%;
 
                 .word_search {
                     display: grid;
@@ -181,14 +183,20 @@ body {
                 }
 
                 .tag_search {
-                    a {
-                        margin: 1%;
-                        padding: 5%;
+                    display: grid;
+                    grid-auto-flow: row;
+                    grid-template-rows: auto;
 
-                        /* タグを横並びにする */
-                        float: left;
+                    .tag_types {
+                        a {
+                            margin: 1%;
+                            padding: 2%;
 
-                        border-radius: 5vh;
+                            /* タグを横並びにする */
+                            float: left;
+
+                            border-radius: 5vh;
+                        }
                     }
                 }
             }
