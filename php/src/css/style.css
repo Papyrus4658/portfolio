@@ -41,16 +41,17 @@ body {
         display: grid;
 
         /*
-    最小幅を0にして、中身に押し広げられないようにする。
-    こうしないと、長いコードがあるときにasideが押し出される。
-    */
+        最小幅を0にして、中身に押し広げられないようにする。
+        こうしないと、長いコードがあるときにasideが押し出される。
+        */
         grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
         grid-template-rows: auto;
+        height: 100%;
 
         .page_top_btn {
             position: fixed;
-            bottom: 1%;
-            right: 1%;
+            bottom: 5%;
+            right: 5%;
             font-size: 3em;
         }
 
@@ -149,7 +150,7 @@ body {
         }
 
         aside {
-            margin: 20% 5%;
+            margin: 1rem;
 
             .hamburger,
             .overlay {
@@ -159,7 +160,8 @@ body {
             .search {
                 /* 検索欄はスクロールしてもこの位置で固定する */
                 position: sticky;
-                top: 10%;
+                top: 1rem;
+                max-height: calc(100dvh-2rem);
 
                 display: grid;
 
@@ -167,7 +169,7 @@ body {
                 grid-template-columns: 1fr;
 
                 /* ワード検索のスペースは最小限、残りをタグ検索 */
-                grid-template-rows: auto 100vh;
+                grid-template-rows: auto minmax(0, 2fr);
 
                 gap: 5%;
 
@@ -186,6 +188,10 @@ body {
                     display: grid;
                     grid-auto-flow: row;
                     grid-template-rows: auto;
+                    gap: 5%;
+
+                    overflow-y: auto;
+                    scroll-behavior: contain;
 
                     .tag_types {
                         a {
@@ -326,12 +332,14 @@ body {
                     width: 85%;
                     max-width: 24rem;
                     height: 100%;
+                    max-height: none;
                     box-sizing: border-box;
                     padding: 4rem 1.5rem 1.5rem;
-                    overflow-y: auto;
 
-                    /* display:noneはアニメーションできないので、画面外に退避して表現する。
-                 *          visibility:hiddenで、閉じている間はTabキーでも辿れなくする */
+                    /*
+                    display:noneはアニメーションできないので、画面外に退避して表現する。
+                    visibility:hiddenで、閉じている間はTabキーでも辿れなくする
+                    */
                     transform: translateX(100%);
                     visibility: hidden;
                     transition: transform 0.3s ease, visibility 0.3s;
