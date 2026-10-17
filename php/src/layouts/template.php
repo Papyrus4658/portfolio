@@ -101,13 +101,11 @@ $title = $title_prefix . " | " . getenv("SITE_NAME");
     include __DIR__ . "/header.php";
     ?>
     <main>
-        <!-- 
         <a href="#page_top" class="page_top_btn">
             <span class="material-symbols-outlined">
                 keyboard_arrow_up
             </span>
         </a>
-         -->
         <article>
             <h1 class="page_title">
                 <?= $title_prefix; ?>
