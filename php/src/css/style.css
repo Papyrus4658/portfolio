@@ -10,214 +10,216 @@ li {
     list-style: none;
 }
 
-header {
+body {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
 
-    h1 {
-        margin: 0 auto;
-        margin: 5% auto;
-        text-align: center;
-    }
+    header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
 
-    nav {
-        place-content: center;
-
-        ul {
-            display: grid;
-            grid-auto-flow: column;
-            place-items: center;
-        }
-    }
-}
-
-main {
-    /* articleとasideを3:1で横並びにする */
-    display: grid;
-
-    /*
-    最小幅を0にして、中身に押し広げられないようにする。
-    こうしないと、長いコードがあるときにasideが押し出される。
-    */
-    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
-
-    .page_top_btn {
-        position: fixed;
-        bottom: 3%;
-        right: 3%;
-        font-size: 3em;
-    }
-
-    article {
-        padding: 5%;
-
-        .page_title {
+        h1 {
+            margin: 0 auto;
+            margin: 5% auto;
             text-align: center;
         }
 
-        .heading {
-            margin-top: 5%;
-            /* 記事一覧のサムネイルとタイトルを1:2で横並びにする */
-            display: grid;
-            grid-template-columns: 1fr 2fr;
+        nav {
+            place-content: center;
 
-            /* 要素を上下左右中央揃えにする */
-            place-items: center;
-
-            img {
-                margin: 5% auto;
-                width: 75%;
-                aspect-ratio: 16/9;
+            ul {
+                display: grid;
+                grid-auto-flow: column;
+                place-items: center;
             }
         }
+    }
 
-        .works {
-            margin-top: 5%;
+    main {
+        /* articleとasideを3:1で横並びにする */
+        display: grid;
 
-            /* 作品を1列3つずつ配置する */
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5%;
+        /*
+    最小幅を0にして、中身に押し広げられないようにする。
+    こうしないと、長いコードがあるときにasideが押し出される。
+    */
+        grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+        grid-template-rows: auto;
 
-            .work {
-                border-radius: 10%;
+        .page_top_btn {
+            position: fixed;
+            bottom: 1%;
+            right: 1%;
+            font-size: 3em;
+        }
 
-                img {
-                    object-fit: cover;
-                    max-width: 100%;
-                    aspect-ratio: 4/3;
-                }
+        article {
+            padding: 5%;
+
+            .page_title {
+                text-align: center;
+            }
+
+            .heading {
+                margin-top: 5%;
+                text-align: center;
 
                 h2 {
                     padding: 5%;
-                    text-align: center;
+                }
+            }
+
+            .works {
+                margin-top: 5%;
+
+                /* 作品を1列3つずつ配置する */
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5%;
+
+                .work {
+                    border-radius: 10%;
+
+                    img {
+                        padding: 5%;
+                        object-fit: cover;
+                        max-width: 100%;
+                        aspect-ratio: 4/3;
+                    }
+
+                    h2 {
+                        padding: 5%;
+                        text-align: center;
+                    }
+                }
+            }
+
+            .md {
+                padding: 5%;
+                max-width: 100vw;
+                border-radius: 5vh;
+
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                p,
+                li {
+                    margin-bottom: 5%;
+                }
+
+                .datetimes {
+                    text-align: right;
+                    margin: 5%;
+                }
+
+                h1 {
+                    margin-top: 10%;
+                }
+
+                img {
+                    display: block;
+                    max-width: 100%;
+                    height: auto;
+                }
+
+                .thumbnail {
+                    margin: 0 auto;
+                }
+
+                li {
+                    /* 記事内のみ点を付ける */
+                    list-style: disc;
+
+                    /* 点をliの内容領域内に入れる（paddingで一緒に移動する） */
+                    list-style-position: inside;
+                }
+
+                pre {
+                    margin: 5% auto;
+
+                    code {
+                        border-radius: 3vh;
+                    }
                 }
             }
         }
 
-        .md {
-            padding: 5%;
-            border-radius: 5vh;
+        aside {
+            margin: 20% 5%;
 
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6,
-            p,
-            li,
-            code {
-                margin-bottom: 5%;
+            .hamburger,
+            .overlay {
+                display: none;
             }
 
-            .datetimes {
-                p {
-                    margin: 5% 0;
+            .search {
+                /* 検索欄はスクロールしてもこの位置で固定する */
+                position: sticky;
+                top: 10%;
+
+                display: grid;
+
+                /* ワード検索欄とタグ検索欄は縦に分ける */
+                grid-template-columns: 1fr;
+
+                /* ワード検索のスペースは最小限、残りをタグ検索 */
+                grid-template-rows: auto 100vh;
+
+                gap: 5%;
+
+                .word_search {
+                    display: grid;
+                    grid-auto-flow: column;
+
+                    input {
+                        padding: 0 5%;
+                        width: 100%;
+                        border-radius: 5vw;
+                    }
+                }
+
+                .tag_search {
+                    display: grid;
+                    grid-auto-flow: row;
+                    grid-template-rows: auto;
+
+                    .tag_types {
+                        a {
+                            margin: 1%;
+                            padding: 2%;
+
+                            /* タグを横並びにする */
+                            float: left;
+
+                            border-radius: 5vh;
+                        }
+                    }
                 }
             }
+        }
+    }
 
-            h1 {
-                margin-top: 10%;
-            }
-
-            img {
-                display: block;
-                max-width: 75%;
-            }
-
-            .thumbnail {
-                margin: 0 auto;
-            }
-
-            .datetimes {
-                text-align: right;
-            }
-
-
+    footer {
+        ul {
+            /* 4つずつ横並びにする */
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5%;
+            place-items: center;
 
             li {
-                /* 記事内のみ点を付ける */
-                list-style: disc;
-
-                /* 点をliの内容領域内に入れる（paddingで一緒に移動する） */
-                list-style-position: inside;
-            }
-
-            pre {
-                margin: 5% auto;
-
-                code {
-                    border-radius: 3vh;
-                }
+                margin: 10% 0;
             }
         }
-    }
 
-    aside {
-        margin: 20% 5%;
-
-        .hamburger,
-        .overlay {
-            display: none;
+        .copyright {
+            padding: 1%;
+            text-align: right;
         }
-
-        .search {
-            /* 検索欄はスクロールしてもこの位置で固定する */
-            position: sticky;
-            top: 10%;
-
-            display: grid;
-
-            /* ワード検索欄とタグ検索欄は縦に分ける */
-            grid-template-columns: 1fr;
-
-            /* ワード検索のスペースは最小限、残りをタグ検索 */
-            grid-template-rows: auto 1fr;
-
-            gap: 25%;
-
-            .word_search {
-                display: grid;
-                grid-auto-flow: column;
-
-                input {
-                    padding: 0 5%;
-                    width: 100%;
-                    border-radius: 5vw;
-                }
-            }
-
-            .tag_search {
-                a {
-                    margin: 1%;
-                    padding: 5%;
-
-                    /* タグを横並びにする */
-                    float: left;
-
-                    border-radius: 5vh;
-                }
-            }
-        }
-    }
-}
-
-footer {
-    ul {
-        /* 4つずつ横並びにする */
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-auto-flow: column;
-        place-items: center;
-
-        li {
-            margin: 5%;
-        }
-    }
-
-    .copyright {
-        text-align: right;
     }
 }
 
@@ -226,131 +228,132 @@ footer {
         overflow: hidden;
     }
 
-    header {
-        grid-template-columns: none;
-        grid-template-rows: 2fr 1fr;
-    }
-
-    main {
-        display: block;
-
-        .page_top_btn {
-            bottom: 1%;
-            right: 1%;
+    body {
+        header {
+            grid-template-columns: none;
+            grid-template-rows: 2fr 1fr;
         }
 
-        article {
+        main {
+            display: block;
 
-            .works {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        aside {
-            height: 0;
-            margin: 0;
-            padding: 0;
-
-            .hamburger {
-                display: block;
-                position: fixed;
-                top: 0;
-                right: 0;
-                z-index: 100;
-
-                appearance: none;
-                background: none;
-                border: none;
-                cursor: pointer;
-
-                width: 48px;
-                height: 48px;
+            .page_top_btn {
+                bottom: 1%;
+                right: 1%;
             }
 
-            .line {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 24px;
-                height: 2px;
-                margin: -1px 0 0 -12px;
-                transition: transform 0.3s, opacity 0.3s;
-            }
-
-            .line:nth-child(1) {
-                transform: translateY(-7px);
-            }
-
-            .line:nth-child(3) {
-                transform: translateY(7px);
-            }
-
-            /* × 変形：全部中心に集めてから回転するので、必ず中心で交差する */
-            .hamburger.is-active .line:nth-child(1) {
-                transform: rotate(45deg);
-            }
-
-            .hamburger.is-active .line:nth-child(2) {
-                opacity: 0;
-            }
-
-            .hamburger.is-active .line:nth-child(3) {
-                transform: rotate(-45deg);
-            }
-
-            /* 暗幕 */
-            .overlay {
-                display: block;
-                position: fixed;
-                inset: 0;
-                z-index: 50;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.3s, visibility 0.3s;
-            }
-
-            .overlay.is-open {
-                opacity: 0.5;
-                visibility: visible;
-            }
-
-            /* 右からスライドするメニュー本体 */
-            .search {
-                display: block;
-                position: fixed;
-                top: 0;
-                right: 0;
-                z-index: 60;
-                width: 85%;
-                max-width: 24rem;
-                height: 100%;
-                box-sizing: border-box;
-                padding: 4rem 1.5rem 1.5rem;
-                overflow-y: auto;
-
-                /* display:noneはアニメーションできないので、画面外に退避して表現する。
-                 *          visibility:hiddenで、閉じている間はTabキーでも辿れなくする */
-                transform: translateX(100%);
-                visibility: hidden;
-                transition: transform 0.3s ease, visibility 0.3s;
-
-                .word_search {
-                    margin-bottom: 2rem;
-                    place-items: center;
+            article {
+                .works {
+                    grid-template-columns: repeat(2, 1fr);
                 }
             }
 
-            .search.is-open {
-                transform: translateX(0);
-                visibility: visible;
+            aside {
+                height: 0;
+                margin: 0;
+                padding: 0;
+
+                .hamburger {
+                    display: block;
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    z-index: 100;
+
+                    appearance: none;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+
+                    width: 48px;
+                    height: 48px;
+                }
+
+                .line {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 24px;
+                    height: 2px;
+                    margin: -1px 0 0 -12px;
+                    transition: transform 0.3s, opacity 0.3s;
+                }
+
+                .line:nth-child(1) {
+                    transform: translateY(-7px);
+                }
+
+                .line:nth-child(3) {
+                    transform: translateY(7px);
+                }
+
+                /* × 変形：全部中心に集めてから回転するので、必ず中心で交差する */
+                .hamburger.is-active .line:nth-child(1) {
+                    transform: rotate(45deg);
+                }
+
+                .hamburger.is-active .line:nth-child(2) {
+                    opacity: 0;
+                }
+
+                .hamburger.is-active .line:nth-child(3) {
+                    transform: rotate(-45deg);
+                }
+
+                /* 暗幕 */
+                .overlay {
+                    display: block;
+                    position: fixed;
+                    inset: 0;
+                    z-index: 50;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s, visibility 0.3s;
+                }
+
+                .overlay.is-open {
+                    opacity: 0.5;
+                    visibility: visible;
+                }
+
+                /* 右からスライドするメニュー本体 */
+                .search {
+                    display: block;
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    z-index: 60;
+                    width: 85%;
+                    max-width: 24rem;
+                    height: 100%;
+                    box-sizing: border-box;
+                    padding: 4rem 1.5rem 1.5rem;
+                    overflow-y: auto;
+
+                    /* display:noneはアニメーションできないので、画面外に退避して表現する。
+                 *          visibility:hiddenで、閉じている間はTabキーでも辿れなくする */
+                    transform: translateX(100%);
+                    visibility: hidden;
+                    transition: transform 0.3s ease, visibility 0.3s;
+
+                    .word_search {
+                        margin-bottom: 2rem;
+                        place-items: center;
+                    }
+                }
+
+                .search.is-open {
+                    transform: translateX(0);
+                    visibility: visible;
+                }
             }
         }
-    }
 
-    footer {
-        ul {
-            /* 4つずつ横並びにする */
-            grid-template-columns: repeat(2, 1fr);
+        footer {
+            ul {
+                /* 2つずつ横並びにする */
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     }
 }
