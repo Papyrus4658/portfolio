@@ -1,11 +1,12 @@
 <header>
-    <a href="<?= getenv("HTML_ROOT_DIR") ?>">
+    <a href="/">
         <h1><?= getenv("SITE_NAME") ?></h1>
     </a>
     <nav>
         <ul>
             <li><a href="<?= getenv("HTML_ROOT_DIR") ?>index.php">記事</a></li>
             <li><a href="<?= getenv("HTML_ROOT_DIR") ?>works.php">作品</a></li>
+            <li><a href="<?= getenv("HTML_ROOT_DIR") ?>bbs.php">掲示板</a></li>
         </ul>
     </nav>
 </header>

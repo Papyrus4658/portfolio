@@ -66,7 +66,7 @@
         echo $text;
         ?>
     </div>
-<?php else: ?>
+<?php elseif ($page === "index"): ?>
     <?php if (count($rows) == 0): ?>
         <p>記事は見つかりませんでした。</p>
     <?php else: ?>
@@ -77,11 +77,44 @@
             ?>
             <div class="heading">
                 <a href="article.php?id=<?= $id ?>">
-                    <h2>
-                        <?= $title; ?>
-                    </h2>
+                    <h2><?= $title; ?></h2>
                 </a>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
+<? elseif ($page === "bbs"): ?>
+    <?php if (count($rows) > 0): ?>
+        <div class="bbs">
+            <?php foreach ($rows as $row): ?>
+                <?php
+                $handle = $row["handle"];
+                $post = $row["post"];
+                $published_at = $row["published_at"];
+                ?>
+                <div class="post">
+                    <p>
+                        <span class="handle"><?= $handle; ?></span>
+                        <span><?= $published_at; ?></span>
+                    </p>
+                    <p class="text"><?= $post; ?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+    <form action="./post.php" method="post" class="post_form">
+        <p><label for="handle">名前</label></p>
+        <p><input type="text" name="handle" id="handle" required></p>
+        <p><label for="post">本文</label></p>
+        <p><textarea name="post" id="post" rows="10" cols="30" required></textarea></p>
+
+        <button type="submit">投稿</button>
+    </form>
+
+    <?php if (isset($_SESSION["register"])): ?>
+        <?php if ($_SESSION["register"] === "success"): ?>
+            <p class="success">投稿しました。</p>
+        <?php else: ?>
+            <p class="fail">投稿に失敗しました。</p>
+        <?php endif; ?>
+    <? endif; ?>
 <?php endif; ?>

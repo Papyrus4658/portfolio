@@ -30,7 +30,7 @@ if ($page === "works") {
 }
 ?>
 <aside>
-    <button class="hamburger" type="button" type="button" aria-label="open" aria-expanded="false"
+    <button class="hamburger" type="button" aria-label="open" aria-expanded="false"
         aria-controls="search">
         <span class="line"></span>
         <span class="line"></span>
