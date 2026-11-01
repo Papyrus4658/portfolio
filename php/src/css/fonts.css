@@ -30,6 +30,10 @@ body {
         }
     }
 
+    .handle {
+        font-weight: bold;
+    }
+
     .word_search {
         font-size: 2em;
     }

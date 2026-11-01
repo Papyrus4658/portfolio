@@ -66,6 +66,12 @@ if ($page === "article") {
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $title_prefix = "記事";
+} elseif ($page === "bbs") {
+    $sql = "SELECT * FROM bbs WHERE is_published ORDER BY id";
+    $stmt = $pdo->query($sql);
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $title_prefix = "掲示板";
 }
 
 $title = $title_prefix . " | " . getenv("SITE_NAME");
