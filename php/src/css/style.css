@@ -147,6 +147,40 @@ body {
                     }
                 }
             }
+
+            .bbs {
+                padding: 5%;
+                max-width: 100vw;
+                border-radius: 5vh;
+
+                .post {
+                    margin-bottom: 10%;
+
+                    .text {
+                        white-space: pre-wrap;
+                    }
+                }
+            }
+
+            form {
+                margin: 5% auto;
+
+                input,
+                textarea,
+                button {
+                    margin: 1%;
+                    padding: 1%;
+                }
+
+                input,
+                button {
+                    border-radius: 5vh;
+                }
+
+                textarea {
+                    border-radius: 2.5vh;
+                }
+            }
         }
 
         aside {

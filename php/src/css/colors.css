@@ -61,6 +61,10 @@
 
     --usuzumi: #bdbebe;
 
+    --asagi: #00a2af;
+
+    --kurenai: #e60051;
+
     --text: light-dark(var(--tetuguro), var(--hakkin));
     --selection: light-dark(var(--usuzumi), var(--ibushigin));
 
@@ -162,26 +166,43 @@ body {
             }
         }
 
-        .md {
+        .md,
+        .bbs {
             background-color: var(--md-bg);
             color: var(--md-text);
 
             a {
                 text-decoration-line: underline;
-
             }
         }
 
-        .word_search {
-            input {
+        .word_search,
+        .post_form {
+
+            input,
+            textarea {
+                border: var(--namari) solid 2px;
+            }
+        }
+
+        .post_form {
+            button {
                 border: var(--namari) solid 2px;
             }
 
-            button {
-                color: var(--namari);
+            button:hover {
+                background: linear-gradient(135deg, var(--suzu), var(--hai));
+                color: var(--unohana);
             }
         }
 
+        .success {
+            color: var(--asagi);
+        }
+
+        .fail {
+            color: var(--kurenai);
+        }
 
         .tag_search {
             a {
