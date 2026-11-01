@@ -102,14 +102,10 @@
         </div>
     <?php endif; ?>
     <form action="./post.php" method="post" class="post_form">
-        <p>
-            <label for="handle">名前</label>
-            <input type="text" name="handle" id="handle" required>
-        </p>
-        <p>
-            <label for="post">本文</label>
-            <textarea name="post" id="post" rows="10" cols="30" required></textarea>
-        </p>
+        <p><label for="handle">名前</label></p>
+        <p><input type="text" name="handle" id="handle" required></p>
+        <p><label for="post">本文</label></p>
+        <p><textarea name="post" id="post" rows="10" cols="30" required></textarea></p>
 
         <button type="submit">投稿</button>
     </form>
